@@ -13,6 +13,7 @@ class AlterHolidaysTable extends Migration
     public function up()
     {
         Schema::table('holidays', function (Blueprint $table) {
+            $table->date('date');
             $table->softdeletes();
         });
     }
