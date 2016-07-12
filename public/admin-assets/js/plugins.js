@@ -442,11 +442,13 @@ $(function() {
                 var now     = new Date();
                 var hour    = now.getHours();
                 var minutes = now.getMinutes();                    
+                var seconds = now.getSeconds();                    
                 
                 hour = hour < 10 ? '0'+hour : hour;
                 minutes = minutes < 10 ? '0'+minutes : minutes;
+                seconds = seconds < 10 ? '0'+seconds : seconds;
                 
-                $(".plugin-clock").html(hour+"<span>:</span>"+minutes);
+                $(".plugin-clock").html(hour+"<span>:</span>"+minutes+"<span>:</span>"+seconds);
             }
             if($(".plugin-clock").length > 0){
                 
@@ -454,7 +456,7 @@ $(function() {
                 
                 window.setInterval(function(){
                     tp_clock_time();                    
-                },10000);
+                },1000);
                 
             }
         }

@@ -10,6 +10,13 @@
         <script type="text/javascript" src="{{ URL::to('admin-assets/js/plugins/jquery/jquery.min.js') }}"></script>
         <script type="text/javascript" src="{{ URL::to('admin-assets/js/plugins/jquery/jquery-ui.min') }}.js"></script>
         <script type="text/javascript" src="{{ URL::to('admin-assets/js/plugins/bootstrap/bootstrap.min.js') }}"></script>                
+        <script type='text/javascript' src='{{ URL::to('admin-assets/js/plugins/noty/jquery.noty.js') }}'></script>
+        <script type='text/javascript' src='{{ URL::to('admin-assets/js/plugins/noty/layouts/topCenter.js') }}'></script>
+        <script type='text/javascript' src='{{ URL::to('admin-assets/js/plugins/noty/layouts/topLeft.js') }}'></script>
+        <script type='text/javascript' src='{{ URL::to('admin-assets/js/plugins/noty/layouts/topRight.js') }}'></script>            
+        
+        <script type='text/javascript' src='{{ URL::to('admin-assets/js/plugins/noty/themes/default.js') }}'></script>
+
         <!-- END PLUGINS -->
 
         <!-- end includes -->

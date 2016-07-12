@@ -1,5 +1,11 @@
-
-
+<?php 
+    use Illuminate\Support\Str; 
+?>
+@if(Auth::check())
+    <?php $id = Auth::user()->user_group_id; ?>
+    <?php $group_name = DB::table('user_groups')->where('id',$id)->pluck('groupname')[0]; ?>
+    <?php //dd(Auth::user()->username); ?>
+@endif
     
 <div class="page-sidebar">
         <!-- START X-NAVIGATION -->
@@ -10,35 +16,38 @@
             </li>
             <li class="xn-profile">
                 <a href="#" class="profile-mini">
-                    <img src="{{ URL::to('admin-assets/assets/images/users/avatar.jpg') }}" alt="Juan Dela Cruz"/>
+                    <img src="{{ URL::to('admin-assets/assets/images/users/avatar.jpg') }}" alt=""/>
                 </a>
                 <div class="profile">
                     <div class="profile-image">
-                        <img src="{{ URL::to('admin-assets/assets/images/users/avatar.jpg') }}" alt="Juan Dela Cruz"/>
+                        <img src="{{ URL::to('admin-assets/assets/images/users/avatar.jpg') }}" alt=""/>
                     </div>
                     <div class="profile-data">
-                        <div class="profile-data-name">Juan Dela Cruz</div>
-                        <div class="profile-data-title">HR Admin</div>
+                        <div class="profile-data-name">{{ Auth::user()->username }}</div>
+                        <div class="profile-data-title">{{ Str::upper($group_name) }}</div>
                     </div>
                 </div>                                                                        
             </li>
             <li class="xn-title">Navigation</li>
-            <li class="active" title="Dashboard" >
-                <a href="#"><span class="fa fa-desktop"></span> <span class="xn-text" >Dashboard</span></a>                        
+            <li title="Dashboard" class="@if(Request::url() === url('admin') || Request::url() === url('admin/dashboard') || Request::url() === url('admin/index') )) active @endif">
+                <a href="{{ url('admin/dashboard')}}"><span class="fa fa-desktop"></span> <span class="xn-text" >Dashboard</span></a>                        
             </li>
-            <li title="Payroll">
+            <li title="Users" class="@if(Request::url() === url('admin/users'))active @endif">
+                <a href="{{ url('admin/users')}}"><span class="fa fa-user"></span> <span class="xn-text">Users</span></a>                        
+            </li> 
+            <li title="Payroll" class="@if(Request::url() === url('admin/payroll'))active @endif">
                 <a href="#"><span class="fa fa-calendar"></span> <span class="xn-text">Payroll</span></a>                        
             </li>                                  
-            <li title="Announcements">
+            <li title="Announcements" class="@if(Request::url() === url('admin/announcements'))active @endif">
                 <a href="#"><span class="fa fa-bell-o"></span> <span class="xn-text">Announcements</span></a>
             </li>            
-            <li title="Employees">
+            <li title="Employees" class="@if(Request::url() === url('admin/employees'))active @endif">
                 <a href="#"><span class="fa fa-group"></span> <span class="xn-text">Employees</span></a>
             </li>            
-            <li title="Timesheet">
+            <li title="Timesheet" class="@if(Request::url() === url('admin/timesheet'))active @endif">
                 <a href="#"><span class="fa fa-clock-o"></span> <span class="xn-text">Timesheet</span></a>
             </li>           
-            <li title="Settings">
+            <li title="Settings" class="@if(Request::url() === url('admin/settings'))active @endif">
                 <a href="#"><span class="fa fa-gear"></span> <span class="xn-text">Settings</span></a>
             </li> 
         </ul>
