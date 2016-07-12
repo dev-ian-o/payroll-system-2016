@@ -1,0 +1,65 @@
+#employee_leave_records
+php artisan make:migration create_employee_leave_records_table --create=employee_leave_records
+#php artisan make:migration alter_employee_leave_records_table --table=employee_leave_records
+php artisan make:seeder EmployeeLeaveRecordTableSeeder
+php artisan make:model EmployeeLeaveRecord
+php artisan make:controller EmployeeLeaveRecordController --resource
+#php artisan db:seed --class=EmployeeLeaveRecordTableSeeder
+
+#leave_types
+php artisan make:migration create_leave_types_table --create=leave_types
+#php artisan make:migration alter_leave_types_table --table=leave_types
+php artisan make:seeder LeaveTypeTableSeeder
+php artisan make:model LeaveType
+php artisan make:controller LeaveTypeController --resource
+#php artisan db:seed --class=LeaveTypeTableSeeder
+
+#employee_dependents
+php artisan make:migration create_employee_dependents_table --create=employee_dependents
+#php artisan make:migration alter_employee_dependents_table --table=employee_dependents
+php artisan make:seeder EmployeeDepedentTableSeeder
+php artisan make:model EmployeeDepedent
+php artisan make:controller EmployeeDepedentController --resource
+#php artisan db:seed --class=EmployeeDepedentTableSeeder
+
+#daily_time_records
+php artisan make:migration create_daily_time_records_table --create=daily_time_records
+#php artisan make:migration alter_daily_time_records_table --table=daily_time_records
+php artisan make:seeder DailyTimeRecordTableSeeder
+php artisan make:model DailyTimeRecord
+php artisan make:controller DailyTimeRecordController --resource
+#php artisan db:seed --class=DailyTimeRecordTableSeeder
+
+#civil_status_codes
+php artisan make:migration create_civil_status_codes_table --create=civil_status_codes
+#php artisan make:migration alter_civil_status_codes_table --table=civil_status_codes
+php artisan make:seeder CivilStatusCodeTableSeeder
+php artisan make:model CivilStatusCode
+php artisan make:controller CivilStatusCodeController --resource
+#php artisan db:seed --class=CivilStatusCodeTableSeeder
+
+#salaries
+php artisan make:migration create_salaries_table --create=salaries
+#php artisan make:migration alter_salaries_table --table=salaries
+php artisan make:seeder SalaryTableSeeder
+php artisan make:model Salary
+php artisan make:controller SalaryController --resource
+#php artisan db:seed --class=SalaryTableSeeder
+
+#announcements
+php artisan make:migration create_announcements_table --create=announcements
+#php artisan make:migration alter_announcements_table --table=announcements
+php artisan make:seeder AnnouncementTableSeeder
+php artisan make:model Announcement
+php artisan make:controller AnnouncementController --resource
+#php artisan db:seed --class=AnnouncementTableSeeder
+
+
+#events
+php artisan make:migration create_events_table --create=events
+#php artisan make:migration alter_events_table --table=events
+php artisan make:seeder EventTableSeeder
+php artisan make:model Event
+php artisan make:controller EventController --resource
+#php artisan db:seed --class=EventTableSeeder
+
