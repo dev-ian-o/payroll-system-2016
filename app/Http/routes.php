@@ -30,6 +30,7 @@ Route::group(array('prefix' => 'admin','middleware' => 'auth'), function()
 	Route::get('/index', 			function(){ return View::make('admin.index'); });
 	Route::get('/dashboard', 			function(){ return View::make('admin.index'); });
 	Route::get('/users', 			function(){ return View::make('admin.users'); });
+	Route::get('/employees', 			function(){ return View::make('admin.employees'); });
 	
 
 });
@@ -51,3 +52,8 @@ Route::match(array('GET', 'POST'), '/logout', function()
     return Redirect::to('login');
 });
 
+
+Route::get('/computation', function()
+{
+	return View::make('computation');
+});

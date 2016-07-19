@@ -42,7 +42,7 @@
                 <a href="#"><span class="fa fa-bell-o"></span> <span class="xn-text">Announcements</span></a>
             </li>            
             <li title="Employees" class="@if(Request::url() === url('admin/employees'))active @endif">
-                <a href="#"><span class="fa fa-group"></span> <span class="xn-text">Employees</span></a>
+                <a href="{{ url('admin/employees')}}"><span class="fa fa-group"></span> <span class="xn-text">Employees</span></a>
             </li>            
             <li title="Timesheet" class="@if(Request::url() === url('admin/timesheet'))active @endif">
                 <a href="#"><span class="fa fa-clock-o"></span> <span class="xn-text">Timesheet</span></a>

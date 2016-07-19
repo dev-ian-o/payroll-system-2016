@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+use App\Employee;
+
+use Validator;
+
 class EmployeeController extends Controller
 {
     /**
@@ -15,7 +19,12 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        //
+        $employees = Employee::where('employees.deleted_at', '=', NULL)
+        // ->leftJoin('user_groups', 'employees.user_group_id', '=', 'user_groups.id')
+        // ->select('*','employees.id','employees.deleted_at','employees.created_at','employees.updated_at')
+        ->get();
+        // return Response::json(array('success'=> 'ok','data'=> $employees));
+        return response()->json($employees);
     }
 
     /**

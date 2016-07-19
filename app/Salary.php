@@ -6,5 +6,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class Salary extends Model
 {
-    //
+	/**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'employee_id', 'basic_pay',
+    ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
 }

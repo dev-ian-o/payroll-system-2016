@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCivilStatusCodesTable extends Migration
+class AlterCivilStatusCodesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,13 +12,8 @@ class CreateCivilStatusCodesTable extends Migration
      */
     public function up()
     {
-        Schema::create('civil_status_codes', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('id_json')->unisigned();
-            $table->string('civil_status');
+        Schema::table('civil_status_codes', function (Blueprint $table) {
             $table->string('civil_status_desc');
-            $table->softDeletes();
-            $table->timestamps();
         });
     }
 
@@ -29,6 +24,8 @@ class CreateCivilStatusCodesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('civil_status_codes');
+        Schema::table('civil_status_codes', function (Blueprint $table) {
+            //
+        });
     }
 }

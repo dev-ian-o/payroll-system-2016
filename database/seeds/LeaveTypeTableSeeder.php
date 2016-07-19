@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\LeaveType;
 
 class LeaveTypeTableSeeder extends Seeder
 {
@@ -11,6 +12,21 @@ class LeaveTypeTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        DB::table('leave_types')->truncate();
+
+        LeaveType::create(array(
+        	'id' => '1',
+            'laeve_type' => 'Sick Leave',
+        ));
+
+        LeaveType::create(array(
+        	'id' => '2',	
+            'laeve_type' => 'Vacation Leave',
+        ));
+
+        LeaveType::create(array(
+        	'id' => '3',	
+            'laeve_type' => 'Leave without pay',
+        ));
     }
 }
