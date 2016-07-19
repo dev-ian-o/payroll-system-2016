@@ -1,7 +1,7 @@
 
 <?php //$cities = ["Quezon City", "Makati City"] ;?>
 
-<div class="modal" id="modal-add" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
+<div class="modal" id="modal-add" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="false">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -12,18 +12,27 @@
             <form role="form" id="form-add" class="form-horizontal">
             <!-- <form action="/api/v1/users" class="form-horizontal" method="post"> -->
             {{ csrf_field() }}
+
             <div class="modal-body">                            
+                <h4>Personal Information</h4>
                 <div class="form-group">
                     <label class="col-md-3 control-label">Employee Number:</label>
                     <div class="col-md-9">
                         <input type="text" name="employee_no" class="form-control"/>
-                        <span class="help-block">Required, min size = 10</span>
+                        <!-- <span class="help-block">Required, min size = 10</span> -->
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 control-label">First Name:</label>
                     <div class="col-md-9">
                         <input type="text" name="firstname" class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Middle Name:</label>
+                    <div class="col-md-9">
+                        <input type="text" name="middlename" class="form-control"/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -75,31 +84,30 @@
                 <div class="form-group">
                     <label class="col-md-3 control-label">SSS Contribution:</label>
                     <div class="col-md-9">
-                        <input type="text" name="basic_pay" class="form-control"/>
+                        <input type="text" name="sss_contribution" class="form-control"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 control-label">Pag-ibig Contribution:</label>
                     <div class="col-md-9">
-                        <input type="text" name="basic_pay" class="form-control"/>
+                        <input type="text" name="pagibig_contribution" class="form-control"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 control-label">Philhealth Contribution:</label>
                     <div class="col-md-9">
-                        <input type="text" name="basic_pay" class="form-control"/>
+                        <input type="text" name="philhealth_contribution" class="form-control"/>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-md-3 control-label">Civil Status:</label>
                     <div class="col-md-9">
-                        <select class="select" name="city">
+                        <select class="select" name="civil_status_code_id">
                             @foreach(App\CivilStatusCode::get() as $key => $value)
-                            <option value="{{$value->id}}">{{ $value->groupname }}</option>
+                            <option value="{{$value->id}}">{{ $value->civil_status_desc }}</option>
                             @endforeach
                         </select>                           
-                        <span class="help-block">Required</span>
                     </div>
                 </div>    
 
@@ -133,11 +141,13 @@
 
 <script type="text/javascript">
     $(document).on('ready',function() {
+        // $('#modal-add').modal('show');
+
         $("#form-add").on('submit', function(e){
           e.preventDefault();
           console.log($(this).serialize());
           $.ajax({
-                    url: '../api/v1/users',
+                    url: '../api/v1/employees',
                     type: 'POST',
                     data: $(this).serialize(),
                     dataType: 'json',

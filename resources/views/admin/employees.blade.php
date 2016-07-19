@@ -52,7 +52,10 @@
                                         </thead>
                                         <tbody>
                                         <?php $a = 1;?>
-                                        @foreach(App\Employee::where('deleted_at',null)->get() as $key => $value)
+                                        @foreach(App\Employee::where('employees.deleted_at', '=', NULL)
+                                                ->leftJoin('salaries', 'salaries.id', '=', 'employees.id')
+                                                ->select('*','employees.id','employees.deleted_at','employees.created_at','employees.updated_at')
+                                                ->get() as $key => $value)
                                             <tr>
                                                 <td>{{ $a++ }}</td>
                                                 <td>{{ $value->employee_no }}</td>
@@ -60,9 +63,21 @@
                                                 <td>{{ $value->firstname }}</td>
                                                 <td class="action-buttons">
                                                     <input type="hidden" name="id" value="{{ $value->id }}">
-                                                    <input type="hidden" name="username" value="{{ $value->username }}">
-                                                    <input type="hidden" name="email" value="{{ $value->email }}">
-                                                    <input type="hidden" name="user_group_id" value="{{ $value->user_group_id }}">
+                                                    <input type="hidden" name="employee_no" value="{{ $value->employee_no }}">
+                                                    <input type="hidden" name="firstname" value="{{ $value->firstname }}">
+                                                    <input type="hidden" name="lastname" value="{{ $value->lastname }}">
+                                                    <input type="hidden" name="middlename" value="{{ $value->middlename }}">
+                                                    <input type="hidden" name="birthdate" value="{{ $value->birthdate }}">
+                                                    <input type="hidden" name="address" value="{{ $value->address }}">
+                                                    <input type="hidden" name="city" value="{{ $value->city }}">
+                                                    <input type="hidden" name="province" value="{{ $value->province }}">
+                                                    <input type="hidden" name="zip_code" value="{{ $value->zip_code }}">
+                                                    <input type="hidden" name="salary_id" value="{{ $value->salary_id }}">
+                                                    <input type="hidden" name="civil_status_code_id" value="{{ $value->civil_status_code_id }}">
+                                                    <input type="hidden" name="basic_pay" value="{{ $value->basic_pay }}">
+                                                    <input type="hidden" name="sss_contribution" value="{{ $value->sss_contribution }}">
+                                                    <input type="hidden" name="pagibig_contribution" value="{{ $value->pagibig_contribution }}">
+                                                    <input type="hidden" name="philhealth_contribution" value="{{ $value->philhealth_contribution }}">
                                                     <button class="btn btn-warning edit" data-toggle="modal" data-target="#modal-edit"><i class="fa fa-pencil"></i></button>
                                                     <button class="btn btn-danger delete" data-toggle="modal" data-target="#modal-delete"><i class="fa fa-trash-o"></i></button>
                                                 </td>

@@ -12,7 +12,7 @@ class Salary extends Model
      * @var array
      */
     protected $fillable = [
-        'employee_id', 'basic_pay',
+        'employee_id', 'basic_pay','sss_contribution','pagibig_contribution','philhealth_contribution'
     ];
 
     /**
