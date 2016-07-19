@@ -16,17 +16,17 @@ class LeaveTypeTableSeeder extends Seeder
 
         LeaveType::create(array(
         	'id' => '1',
-            'laeve_type' => 'Sick Leave',
+            'leave_type' => 'Sick Leave',
         ));
 
         LeaveType::create(array(
         	'id' => '2',	
-            'laeve_type' => 'Vacation Leave',
+            'leave_type' => 'Vacation Leave',
         ));
 
         LeaveType::create(array(
         	'id' => '3',	
-            'laeve_type' => 'Leave without pay',
+            'leave_type' => 'Leave without pay',
         ));
     }
 }
