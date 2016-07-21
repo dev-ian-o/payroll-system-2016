@@ -224,6 +224,12 @@ class EmployeeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = Employee::find($id);
+        $user->deleted_at = date('Y-m-d h:m:s');
+        $user->save();
+
+        // return Redirect::to('admin/users');
+        return response()->json(array('success'=> true));
+
     }
 }

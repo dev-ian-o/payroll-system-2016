@@ -42,10 +42,19 @@
     $("#form-delete").on('submit', function(e){
       e.preventDefault();
       id = $(this).find('[name=id]').val();
-      $.ajax({
-                url: '../api/v1/users/'+id,
+      type_of_trans = "delete";
+      $('#modal-confirm').modal('show');
+
+      return false;
+    });
+  });
+
+  function delete_this(){
+          id = $("#form-delete").find('[name=id]').val();
+          $.ajax({
+                url: '../api/v1/employees/'+id,
                 type: 'DELETE',
-                data: $(this).serialize(),
+                data: $("#form-delete").serialize(),
                 dataType: 'json',
                 success: function(results){
                   console.log(results);
@@ -62,7 +71,5 @@
                   //loader stop here.
                 }
           });
-      return false;
-    });
-  });
+  }
 </script>

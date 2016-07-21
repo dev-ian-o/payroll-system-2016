@@ -77,6 +77,8 @@
                           }
                           else if(type_of_trans === "add"){
                             add();
+                          }else if(type_of_trans === "delete"){
+                            delete_this();
                           }
 
                       }
