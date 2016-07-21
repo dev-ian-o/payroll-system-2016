@@ -53,7 +53,7 @@
                                         <tbody>
                                         <?php $a = 1;?>
                                         @foreach(App\Employee::where('employees.deleted_at', '=', NULL)
-                                                ->leftJoin('salaries', 'salaries.id', '=', 'employees.id')
+                                                ->leftJoin('salaries', 'salaries.id', '=', 'employees.salary_id')
                                                 ->select('*','employees.id','employees.deleted_at','employees.created_at','employees.updated_at')
                                                 ->get() as $key => $value)
                                             <tr>
@@ -78,7 +78,15 @@
                                                     <input type="hidden" name="sss_contribution" value="{{ $value->sss_contribution }}">
                                                     <input type="hidden" name="pagibig_contribution" value="{{ $value->pagibig_contribution }}">
                                                     <input type="hidden" name="philhealth_contribution" value="{{ $value->philhealth_contribution }}">
-                                                    <button class="btn btn-warning edit" data-toggle="modal" data-target="#modal-edit"><i class="fa fa-pencil"></i></button>
+                                                    <!-- <button class="btn btn-warning edit" data-toggle="modal" data-target="#modal-edit"><i class="fa fa-pencil"></i></button> -->
+                                                    <div class="btn-group">
+                                                        <a href="#" data-toggle="dropdown" class="btn btn-warning dropdown-toggle edit">Edit <span class="caret"></span></a>
+                                                        <ul class="dropdown-menu" role="menu">
+                                                            <!-- <li role="presentation" class="dropdown-header">Dropdown header</li> -->
+                                                            <li><a href="#" data-toggle="modal" data-target="#modal-edit-personal">Personal and Address Information</a></li>
+                                                            <li><a href="#" data-toggle="modal" data-target="#modal-edit-pay">Pay Information</a></li>                                                    
+                                                        </ul>
+                                                    </div>
                                                     <button class="btn btn-danger delete" data-toggle="modal" data-target="#modal-delete"><i class="fa fa-trash-o"></i></button>
                                                 </td>
                                             </tr>
@@ -106,7 +114,9 @@
 @include('admin.common.logout')
 @include('admin.common.footer')
 @include('admin.modals.employees.add')
-@include('admin.modals.employees.edit')
+@include('admin.modals.employees.edit-personal')
+@include('admin.modals.employees.edit-pay')
 @include('admin.modals.employees.delete')
+@include('admin.modals.employees.confirm')
 
 </body>

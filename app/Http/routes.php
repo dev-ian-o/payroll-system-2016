@@ -57,3 +57,17 @@ Route::get('/computation', function()
 {
 	return View::make('computation');
 });
+
+
+Route::post('/api/v1/auth/confirm', function()
+{
+	$userdata = array(
+        'username' => Request::input('username'),
+        'password' => Request::input('password')
+    );
+
+    if(Auth::attempt($userdata)) 
+        return response()->json(array('success'=> true));
+    if(Auth::attempt($userdata)) 
+        return response()->json(array('success'=> false));
+});

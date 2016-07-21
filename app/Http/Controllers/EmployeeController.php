@@ -21,11 +21,34 @@ class EmployeeController extends Controller
     public function index()
     {
         $employees = Employee::where('employees.deleted_at', '=', NULL)
-        ->leftJoin('salaries', 'salaries.id', '=', 'employees.id')
+        ->leftJoin('salaries', 'salaries.id', '=', 'employees.salary_id')
         ->select('*','employees.id','employees.deleted_at','employees.created_at','employees.updated_at')
         ->get();
-        // return Response::json(array('success'=> 'ok','data'=> $employees));
-        return response()->json($employees);
+
+        // $employees = Employee::where('employees.deleted_at', '=', NULL)
+        // ->join(\DB::raw('(SELECT * FROM salaries) salaries') , function($join){
+        //     $join->on('salaries.employee_id', '=', 'employees.id');
+        //         // ->orderBy('created_at', 'desc');
+        //         // ->first();
+        // })
+        // $employees = Employee::where('employees.deleted_at', '=', NULL)
+        // ->leftJoin('salaries' , function($join){
+        //     $join->on('salaries.employee_id', '=', 'employees.id')
+        //         ->where('salaries.deleted_at', '=', NULL);
+        //         // ->orderBy('created_at', 'desc');
+        //         // ->first();
+        // })
+        // ->select('*','employees.id','employees.deleted_at','employees.created_at','employees.updated_at')
+        // ->get();
+
+
+ // ->join(DB::raw('(SELECT user_id, COUNT(user_id) TotalCatch, DATEDIFF(NOW(), MIN(created_at)) Days, COUNT(user_id)/DATEDIFF(NOW(), MIN(created_at)) CatchesPerDay FROM `catch-text` GROUP BY user_id) TotalCatches'), function($join)
+ //        {
+ //            $join->on('users.id', '=', 'TotalCatches.user_id');
+ //        })
+            return response()->json(array('success'=> true, 'data' => $employees));
+        // dd(response()->json($employees));
+        // dd($employees);
     }
 
     /**
@@ -63,7 +86,12 @@ class EmployeeController extends Controller
             'province' => 'required|min:1',
             'zip_code' => 'required|min:1',
             'civil_status_code_id' => 'required|exists:civil_status_codes,id',
+            'basic_pay' => 'required|min:1|numeric',
+            'sss_contribution' => 'required|min:1|numeric',
+            'pagibig_contribution' => 'required|min:1|numeric',
+            'philhealth_contribution' => 'required|min:1|numeric',
         ]);
+        
 
         // if ($validator->fails()) {
         //     return response()->json(['errors' => $validator->errors(), 'status' => 400], 200);
@@ -95,6 +123,7 @@ class EmployeeController extends Controller
             $employee_id = Employee::create(array(
                 'employee_no' => request()->input('employee_no'),
                 'firstname' => request()->input('firstname'),
+                'middlename' => request()->input('middlename'),
                 'lastname' => request()->input('lastname'),
                 'birthdate' => request()->input('birthdate'),
                 'address' => request()->input('address'),
@@ -130,9 +159,49 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id,Request $request)
     {
-        //
+
+        // $validator = Validator::make($request->all(), [
+        //     'username' => "required|unique:users,username,$id|max:255|min:5",
+        //     'email' => "required|unique:users,email,$id|email",
+        //     'password' => 'required|min:5|confirmed',
+        //     'user_group_id' => 'required|exists:user_groups,id'
+        // ]);
+
+        $validator = Validator::make($request->all(), [
+            'employee_no' => "required|unique:employees,employee_no,$id|max:255|min:1",
+            'firstname' => 'required|min:1',
+            'lastname' => 'required|min:1',
+            'middlename' => 'min:1',
+            'birthdate' => 'required|date',
+            'address' => 'required|min:1',
+            'city' => 'required|min:1',
+            'province' => 'required|min:1',
+            'zip_code' => 'required|min:1',
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors(), 'status' => 400], 200);
+        }else{
+            $employee = Employee::find($id);
+            $employee->employee_no = request()->input('employee_no');
+            $employee->firstname = request()->input('firstname');
+            $employee->middlename = request()->input('middlename');
+            $employee->lastname = request()->input('lastname');
+            $employee->birthdate = request()->input('birthdate');
+            $employee->address = request()->input('address');
+            $employee->city = request()->input('city');
+            $employee->province = request()->input('province');
+            $employee->zip_code = request()->input('zip_code');
+            $employee->salary_id = request()->input('salary_id');
+            // $employee->image = request()->input('image');
+            $employee->save();
+
+            // return Redirect::to('admin/users');
+            return response()->json(array('success'=> true));
+        }
+        // return response()->json(array('success'=> true));
+        
     }
 
     /**

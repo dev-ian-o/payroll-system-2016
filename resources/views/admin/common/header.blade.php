@@ -13,6 +13,17 @@
 
         <!-- CSS INCLUDE -->        
         <link rel="stylesheet" type="text/css" id="theme" href="{{ URL::to('admin-assets/css/theme-default.css') }}"/>
+        <style type="text/css">
+            .datepicker{
+                z-index:1154 !important;
+            }
+            #modal-confirm{
+                z-index:1152 !important;
+            }
+            .noty_message{
+                z-index:1153 !important;
+            }
+        </style>
 <!--         <link rel="stylesheet" type="text/css" id="theme" href="{{ URL::to('css/style.css') }}"/> -->
         <!-- EOF CSS INCLUDE -->               
     </head>

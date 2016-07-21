@@ -4,6 +4,7 @@ Route::group(array('prefix' => 'api/v1'), function()
 {
     Route::resource('users', 'UserController');
     Route::resource('employees', 'EmployeeController');
+    Route::resource('salaries', 'SalaryController');
     
 });
 
