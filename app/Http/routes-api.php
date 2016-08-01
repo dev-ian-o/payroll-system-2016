@@ -5,7 +5,7 @@ Route::group(array('prefix' => 'api/v1'), function()
     Route::resource('users', 'UserController');
     Route::resource('employees', 'EmployeeController');
     Route::resource('salaries', 'SalaryController');
-    
+    Route::resource('daily_time_records', 'DailyTimeRecordController');
 });
 
 Route::post('/api/v1/auth', function()
