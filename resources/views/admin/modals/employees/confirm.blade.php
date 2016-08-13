@@ -57,7 +57,7 @@
 
 
           $.ajax({
-                    url: '../api/v1/auth/confirm',
+                    url: "{{ URL::to('api/v1/auth/confirm') }}",
                     type: 'POST',
                     data: $(this).serialize(),
                     dataType: 'json',

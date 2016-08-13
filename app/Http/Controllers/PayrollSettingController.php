@@ -1,0 +1,123 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+use App\Http\Requests;
+
+use App\PayrollSetting;
+
+use Validator;
+
+use Carbon\Carbon;
+
+class PayrollSettingController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'daily_start_shift' => 'required',
+            'daily_end_shift' => 'required',
+            'first_cut_off_date' => 'required',
+            'second_cut_off_date' => 'required',
+        ]);
+
+
+        // $messages = [
+        //     'required'    => 'The :attribute is required.',
+        //     'min' => 'The :attribute must be :min characters.',
+        //     'in'      => 'The :attribute must be one of the following types: :values',
+        // ];
+
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors(), 'status' => 400], 200);
+        }else{
+
+            $daily_start_shift = Carbon::createFromFormat('h:i A', request()->input('daily_start_shift') )->format('H:i:s');
+            $daily_end_shift = Carbon::createFromFormat('h:i A', request()->input('daily_end_shift') )->format('H:i:s');
+
+            PayrollSetting::create(array(
+                'daily_start_shift' => $daily_start_shift,
+                'daily_end_shift' => $daily_end_shift,
+                'cutoff_dates'    => json_encode(array("_1" => request()->input('first_cut_off_date') , "_2"=> request()->input('second_cut_off_date') ))
+            ));
+
+            return response()->json(array('success'=> true));
+
+        }
+
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
+}

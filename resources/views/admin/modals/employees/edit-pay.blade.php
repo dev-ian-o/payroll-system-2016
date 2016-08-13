@@ -125,7 +125,7 @@
       function edit_pay(){
             id = $("#form-edit-pay").find('[name=id]').val();
             $.ajax({
-                url: '../api/v1/salaries',
+                url: "{{ URL::to('api/v1/salaries') }}",
                 type: 'POST',
                 data: $("#form-edit-pay").serialize(),
                 dataType: 'json',

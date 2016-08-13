@@ -30,7 +30,8 @@
         <script type="text/javascript" src="{{ URL::to('admin-assets/js/plugins/datatables/jquery.dataTables.min.js') }}"></script> 
         
         <script type='text/javascript' src='/admin-assets/js/plugins/bootstrap/bootstrap-select.js'></script>
-        <script type="text/javascript" src="{{ URL::to('admin-assets/js/plugins/owl/owl.carousel.min.js') }}"></script>                 
+        <script type="text/javascript" src="{{ URL::to('admin-assets/js/plugins/owl/owl.carousel.min.js') }}"></script>
+        <script type="text/javascript" src="{{ URL::to('admin-assets/js/plugins/bootstrap/bootstrap-timepicker.min.js') }}"></script>                 
 
         <!-- END THIS PAGE PLUGINS -->       
 

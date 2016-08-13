@@ -48,7 +48,7 @@
                 <a href="#"><span class="fa fa-clock-o"></span> <span class="xn-text">Timesheet</span></a>
             </li>           
             <li title="Settings" class="@if(Request::url() === url('admin/settings'))active @endif">
-                <a href="#"><span class="fa fa-gear"></span> <span class="xn-text">Settings</span></a>
+                <a href="{{ url('admin/settings')}}"><span class="fa fa-gear"></span> <span class="xn-text">Settings</span></a>
             </li> 
         </ul>
         <!-- END X-NAVIGATION -->

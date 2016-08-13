@@ -8,6 +8,7 @@
 
             <form role="form" id="form-edit-personal" class="form-horizontal">
             <input type="hidden" name="id" value="">
+            <input type="hidden" name="salary_id" value="">
             <div class="modal-body">                            
                 <h4>Personal Information</h4>
                 <div class="form-group">

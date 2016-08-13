@@ -79,6 +79,8 @@
                                                     <input type="hidden" name="pagibig_contribution" value="{{ $value->pagibig_contribution }}">
                                                     <input type="hidden" name="philhealth_contribution" value="{{ $value->philhealth_contribution }}">
                                                     <!-- <button class="btn btn-warning edit" data-toggle="modal" data-target="#modal-edit"><i class="fa fa-pencil"></i></button> -->
+
+                                                    <a href='{{ URL::to("/admin/employees/$value->employee_no") }}' class="btn btn-success" ><!-- <i class="fa fa-eye"></i> -->View</a>
                                                     <div class="btn-group">
                                                         <a href="#" data-toggle="dropdown" class="btn btn-warning dropdown-toggle edit">Edit <span class="caret"></span></a>
                                                         <ul class="dropdown-menu" role="menu">

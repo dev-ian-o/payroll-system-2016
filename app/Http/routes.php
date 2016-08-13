@@ -12,6 +12,7 @@
 */
 
 use App\User;
+use App\Employee;
 
 
 
@@ -30,7 +31,8 @@ Route::group(array('prefix' => 'admin','middleware' => 'auth'), function()
 	Route::get('/index', 			function(){ return View::make('admin.index'); });
 	Route::get('/dashboard', 			function(){ return View::make('admin.index'); });
 	Route::get('/users', 			function(){ return View::make('admin.users'); });
-	Route::get('/employees', 			function(){ return View::make('admin.employees'); });
+    Route::get('/employees',            function(){ return View::make('admin.employees'); });
+	Route::get('/settings', 			function(){ return View::make('admin.settings'); });
 	
 
 });
@@ -70,4 +72,16 @@ Route::post('/api/v1/auth/confirm', function()
         return response()->json(array('success'=> true));
     if(Auth::attempt($userdata)) 
         return response()->json(array('success'=> false));
+});
+
+
+Route::get('/admin/employees/{employee_no}', function($employee_no)
+{
+    
+    if(Employee::where('employee_no', '=', $employee_no)->exists()){
+        return View::make('admin.employees-profile')->with('employee_no',$employee_no);
+    }
+    else{
+        return Redirect::to('/admin/employees');
+    }
 });
