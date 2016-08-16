@@ -41,7 +41,7 @@ class AnnouncementController extends Controller
     public function store(Request $request)
     {
          $validator = Validator::make($request->all(), [
-            'annoucement' => 'required',
+            'announcements' => 'required',
             'date_from' => 'required|date|after:yesterday',
             'date_to' => 'required|date|after:yesterday',
         ]);
@@ -52,15 +52,15 @@ class AnnouncementController extends Controller
         //     'min' => 'The :attribute must be :min characters.',
         //     'in'      => 'The :attribute must be one of the following types: :values',
         // ];
-
+         
 
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors(), 'status' => 400], 200);
         }else{
 
             Announcement::create(array(
-                'annoucement' => request()->input('annoucement'),
-                'date_from' => bcrypt(request()->input('date_from')),
+                'announcements' => request()->input('announcements'),
+                'date_from' => request()->input('date_from'),
                 'date_to'    => request()->input('date_to'),
             ));
             return response()->json(array('success'=> true));
@@ -85,9 +85,26 @@ class AnnouncementController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id,Request $request)
     {
-        //
+         $validator = Validator::make($request->all(), [
+            'announcements' => 'required',
+            'date_from' => 'required|date|after:yesterday',
+            'date_to' => 'required|date|after:yesterday',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors(), 'status' => 400], 200);
+        }else{
+            $user = Announcement::find($id);
+            $user->announcements = request()->input('announcements');
+            $user->date_from = request()->input('date_from');
+            $user->date_to = request()->input('date_to');
+            $user->save();
+
+            // return Redirect::to('admin/users');
+            return response()->json(array('success'=> true));
+        }
     }
 
     /**
@@ -110,6 +127,11 @@ class AnnouncementController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = Announcement::find($id);
+        $user->deleted_at = date('Y-m-d h:m:s');
+        $user->save();
+
+        // return Redirect::to('admin/users');
+        return response()->json(array('success'=> true));
     }
 }

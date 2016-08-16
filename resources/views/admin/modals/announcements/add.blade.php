@@ -13,7 +13,7 @@
                 <div class="form-group">
                     <label class="col-md-3 control-label">Announcement:</label>
                     <div class="col-md-9">
-                        <textarea type="text" name="annoucement" class="form-control">
+                        <textarea type="text" name="announcements" class="form-control">
                         </textarea>
                         <span class="help-block">Required, max size = 5</span>
                     </div>

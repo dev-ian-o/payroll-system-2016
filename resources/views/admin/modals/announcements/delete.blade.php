@@ -12,9 +12,6 @@
                 <form id="form-delete" >
                    {{ csrf_field() }}
                     <input type="hidden" name="id"> 
-                    <input type="hidden" name="user_group_id"> 
-                    <input type="hidden" name="email">
-                    <input type="hidden" name="password">
 
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <input class="btn btn-primary" type="submit" value="Delete">
@@ -43,7 +40,7 @@
       e.preventDefault();
       id = $(this).find('[name=id]').val();
       $.ajax({
-                url: '../api/v1/users/'+id,
+                url: '../api/v1/announcements/'+id,
                 type: 'DELETE',
                 data: $(this).serialize(),
                 dataType: 'json',

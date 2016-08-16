@@ -10,46 +10,28 @@
             <input type="hidden" name="id" value="">
             <div class="modal-body">                            
                 <div class="form-group">
-                    <label class="col-md-3 control-label">Username:</label>
+                    <label class="col-md-3 control-label">Announcement:</label>
                     <div class="col-md-9">
-                        <input type="text" name="username" value="" class="validate[required] form-control"/>
+                        <textarea type="text" name="announcements" class="form-control">
+                        </textarea>
                         <span class="help-block">Required, max size = 5</span>
-                    </div>
-                </div>                            
-                <div class="form-group">
-                    <label class="col-md-3 control-label">Email:</label>
-                    <div class="col-md-9">
-                        <input type="email" name="email" value="" class="validate[required] form-control"/>
-                        <!-- <span class="help-block">Required, max size = 8</span> -->
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-3 control-label">User Group:</label>
+                    <label class="col-md-3 control-label">Date From:</label>
                     <div class="col-md-9">
-                        <select class="form-control" name="user_group_id" value="">
-                            @foreach(App\UserGroup::get() as $key => $value)
-                                <option value="{{$value->id}}">{{ $value->groupname }}</option>
-                            @endforeach
-                        </select>                           
+                        <input type="text" name="date_from" class="form-control datepicker"/>
                         <span class="help-block">Required</span>
                     </div>
                 </div>    
 
                 <div class="form-group">
-                    <label class="col-md-3 control-label">Password:</label>
+                    <label class="col-md-3 control-label">Date to:</label>
                     <div class="col-md-9">
-                        <input type="password" name="password" class="validate[required,minSize[5]] form-control" id="password"/>
-                        <span class="help-block">Required, min size = 5</span>
+                        <input type="text" name="date_to" class="form-control datepicker"/>
+                        <span class="help-block">Required</span>
                     </div>
-                </div>    
-                                                                  
-                <div class="form-group">
-                    <label class="col-md-3 control-label">Confirm:</label>
-                    <div class="col-md-9">
-                        <input type="password" class="validate[required,equals[password]] form-control" name="password_confirmation"/>
-                        <span class="help-block">Required, equals Password</span>
-                    </div>
-                </div>                                                               
+                </div>                                                                   
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -78,7 +60,7 @@
           e.preventDefault();
           id = $(this).find('[name=id]').val();
           $.ajax({
-                    url: '../api/v1/users/' + id + '/edit',
+                    url: '../api/v1/announcements/' + id + '/edit',
                     type: 'GET',
                     data: $(this).serialize(),
                     dataType: 'json',
