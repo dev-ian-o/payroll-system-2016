@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+use App\Announcement;
+
+use Validator;
+
 class AnnouncementController extends Controller
 {
     /**
@@ -25,7 +29,7 @@ class AnnouncementController extends Controller
      */
     public function create()
     {
-        //
+       
     }
 
     /**
@@ -36,7 +40,32 @@ class AnnouncementController extends Controller
      */
     public function store(Request $request)
     {
-        //
+         $validator = Validator::make($request->all(), [
+            'annoucement' => 'required',
+            'date_from' => 'required|date|after:yesterday',
+            'date_to' => 'required|date|after:yesterday',
+        ]);
+
+
+        // $messages = [
+        //     'required'    => 'The :attribute is required.',
+        //     'min' => 'The :attribute must be :min characters.',
+        //     'in'      => 'The :attribute must be one of the following types: :values',
+        // ];
+
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors(), 'status' => 400], 200);
+        }else{
+
+            Announcement::create(array(
+                'annoucement' => request()->input('annoucement'),
+                'date_from' => bcrypt(request()->input('date_from')),
+                'date_to'    => request()->input('date_to'),
+            ));
+            return response()->json(array('success'=> true));
+
+        }
     }
 
     /**

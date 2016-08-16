@@ -7,6 +7,7 @@ Route::group(array('prefix' => 'api/v1'), function()
     Route::resource('salaries', 'SalaryController');
     Route::resource('daily_time_records', 'DailyTimeRecordController');
     Route::resource('payroll_settings', 'PayrollSettingController');
+    Route::resource('announcements', 'AnnouncementController');
 });
 
 Route::post('/api/v1/auth', function()

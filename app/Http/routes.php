@@ -32,7 +32,8 @@ Route::group(array('prefix' => 'admin','middleware' => 'auth'), function()
 	Route::get('/dashboard', 			function(){ return View::make('admin.index'); });
 	Route::get('/users', 			function(){ return View::make('admin.users'); });
     Route::get('/employees',            function(){ return View::make('admin.employees'); });
-	Route::get('/settings', 			function(){ return View::make('admin.settings'); });
+    Route::get('/settings',             function(){ return View::make('admin.settings'); });
+	Route::get('/announcements', 			function(){ return View::make('admin.announcements'); });
 	
 
 });
