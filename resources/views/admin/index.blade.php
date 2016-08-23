@@ -14,8 +14,29 @@
                            
     @include('admin.common.breadcrumbs')
         
+        <?php $payroll_setting = App\PayrollSetting::where('deleted_at',null)->orderBy('created_at','DESC')->first(); ?>
+        <?php $date_now = Carbon\Carbon::now(new \DateTimeZone('Asia/Manila')); ?>
+        <?php
+            $employees_clocked_in = App\DailyTimeRecord::where( \DB::raw('MONTH(time_in)'), '=', date("m") )
+                ->where( \DB::raw('DAY(time_in)'), '=', date("d") )
+                ->where( \DB::raw('YEAR(time_in)'), '=', date("Y") )
+                ->where('deleted_at',null)
+                ->count();
+        ?>
+        <?php $employees_late  = App\DailyTimeRecord::where( \DB::raw('MONTH(time_in)'), '=', date("m") )
+                ->where( \DB::raw('DAY(time_in)'), '=', date("d") )
+                ->where( \DB::raw('YEAR(time_in)'), '=', date("Y") )
+                ->where('time_in','>',date("Y-m-d ") . $payroll_setting->daily_start_shift)
+                ->where('deleted_at',null)
+                ->count(); 
 
-        
+        ?>
+        <?php $employees_on_leave  = App\EmployeeLeaveRecord::where('deleted_at',null)
+                        ->where('date_from', '<=', date('Y-m-d'))
+                        ->Where('date_to','>=',date('Y-m-d'))
+                        ->count(); 
+        ?>
+       
         <!-- PAGE TITLE -->
         <!-- <div class="page-title">                    
             <h2><span class="fa fa-home"></span> Home</h2>
@@ -49,7 +70,7 @@
                             <span class="fa fa-plane"></span>
                         </div>                             
                         <div class="widget-data">
-                            <div class="widget-int num-count">5</div>
+                            <div class="widget-int num-count">{{ $employees_on_leave }}</div>
                             <div class="widget-title">Employee/s on leave</div>
                             <!-- <div class="widget-subtitle">In your mailbox</div> -->
                         </div> 
@@ -65,7 +86,7 @@
                             <span class="fa fa-user"></span>
                         </div>                             
                         <div class="widget-data">
-                            <div class="widget-int num-count">48</div>
+                            <div class="widget-int num-count">{{ $employees_clocked_in }}</div>
                             <div class="widget-title">Employee/s Clocked-In</div>
                         </div> 
                     </div>                            
@@ -80,7 +101,7 @@
                             <span class="fa fa-exclamation-triangle"></span>
                         </div>
                         <div class="widget-data">
-                            <div class="widget-int num-count">2</div>
+                            <div class="widget-int num-count">{{ $employees_late }}</div>
                             <div class="widget-title">Late Employee/s</div>
                         </div>                           
                     </div>                            

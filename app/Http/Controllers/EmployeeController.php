@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 
 use App\Employee;
+use App\LeaveType;
+use App\EmployeeLeaveCount;
 use App\Salary;
 
 use Validator;
@@ -133,6 +135,17 @@ class EmployeeController extends Controller
                 'civil_status_code_id' => request()->input('civil_status_code_id'),
                 'salary_id' => $salary_id,
             ))->id;
+
+            foreach (LeaveType::where('deleted_at',null)->get() as $key => $value){
+                EmployeeLeaveCount::create(array(
+                    'employee_id' => $employee_id,
+                    'leave_type_id' => $value->id,
+                    'total_leave_count' => $value->default_no_per_employee,
+                    'actual_leave_count' => $value->default_no_per_employee,
+                ));
+
+            }
+
 
             \DB::table('salaries')
                 ->where('id', $salary_id)

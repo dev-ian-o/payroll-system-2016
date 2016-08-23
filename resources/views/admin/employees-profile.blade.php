@@ -91,7 +91,17 @@
                                     <li class="list-group-item"><span class="fa fa-sign-out"></span> City: <span id="time-out">{{ $employee['city'] }}</span></li>
                                     <li class="list-group-item"><span class="fa fa-sign-out"></span> Province: <span id="time-out">{{ $employee['province'] }}</span></li>
                                     <li class="list-group-item"><span class="fa fa-sign-out"></span> Zip Code: <span id="time-out">{{ $employee['zip_code'] }}</span></li>
-                                    <li class="list-group-item"><span class="fa fa-sign-out"></span> No. of leaves: <span id="time-out"></span></li>
+                                    <li class="list-group-item"><span class="fa fa-sign-out"></span> No. of leaves: <br>
+                                            
+                                             @foreach(App\EmployeeLeaveCount::where('leave_types.deleted_at', '=', NULL)
+                                                ->where('employee_leave_counts.employee_id', '=', $employee['id'])
+                                                ->where('default_no_per_employee','>',0)
+                                                ->leftJoin('leave_types', 'leave_types.id', '=', 'employee_leave_counts.leave_type_id')
+                                                ->select('*','employee_leave_counts.id','employee_leave_counts.deleted_at','employee_leave_counts.created_at','employee_leave_counts.updated_at')
+                                                ->get() as $key => $value)
+                                            {{ $value->leave_type }} : {{ $value->actual_leave_count }}<br>
+                                            @endforeach
+                                    </li>
                                     <li class="list-group-item"><span class="fa fa-sign-out"></span> Basic Pay: <span id="time-out">{{ number_format($employee['basic_pay'],2) }}</span></li>
 
                                 </div>

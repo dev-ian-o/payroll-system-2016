@@ -6,17 +6,12 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
-use App\LeaveType;
-
-use App\EmployeeLeaveCount;
-
-use App\Employee;
-
+use App\Holiday;
+use App\HolidayType;
 
 use Validator;
 
-
-class LeaveTypeController extends Controller
+class HolidayController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -46,38 +41,32 @@ class LeaveTypeController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'leave_type' => 'required|unique:leave_types|min:1',
-            'default_no_per_employee' => 'required|min:0|numeric',
+       $validator = Validator::make($request->all(), [
+            'holiday' => 'required|min:1',
+            'date' => 'required|date',
+            'holiday_type_id' => 'required|min:1',
         ]);
 
 
+        // $messages = [
+        //     'required'    => 'The :attribute is required.',
+        //     'min' => 'The :attribute must be :min characters.',
+        //     'in'      => 'The :attribute must be one of the following types: :values',
+        // ];
 
 
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors(), 'status' => 400], 200);
-
         }else{
 
-            $leave_type_id = LeaveType::create(array(
-                'leave_type' => request()->input('leave_type'),
-                'default_no_per_employee' => request()->input('default_no_per_employee'),
-            ))->id;
-
-            foreach (Employee::where('deleted_at',null)->get() as $key => $value){
-                EmployeeLeaveCount::create(array(
-                    'employee_id' => $value->id,
-                    'leave_type_id' => $leave_type_id,
-                    'total_leave_count' => request()->input('default_no_per_employee'),
-                    'actual_leave_count' => request()->input('default_no_per_employee'),
-                ));
-
-            }
-            
-
+            Holiday::create(array(
+                'holiday' => request()->input('holiday'),
+                'date' => request()->input('date'),
+                'holiday_type_id'    => request()->input('holiday_type_id'),
+            ));
             return response()->json(array('success'=> true));
-
         }
+
     }
 
     /**
@@ -99,24 +88,34 @@ class LeaveTypeController extends Controller
      */
     public function edit($id,Request $request)
     {
-         $validator = Validator::make($request->all(), [
-            'leave_type' => "required|unique:leave_types,leave_type,$id|min:1",
-            'default_no_per_employee' => 'required|min:0|numeric',
+        $validator = Validator::make($request->all(), [
+            'holiday' => 'required|min:1',
+            'date' => 'required|date',
+            'holiday_type_id' => 'required|min:1',
         ]);
+
+
+        // $messages = [
+        //     'required'    => 'The :attribute is required.',
+        //     'min' => 'The :attribute must be :min characters.',
+        //     'in'      => 'The :attribute must be one of the following types: :values',
+        // ];
+
 
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors(), 'status' => 400], 200);
         }else{
-            $user = LeaveType::find($id);
-            $user->leave_type = request()->input('leave_type');
-            $user->default_no_per_employee = request()->input('default_no_per_employee');
-            $user->save();
 
-            // return Redirect::to('admin/users');
+            
+            $holiday = Holiday::find($id);
+            $holiday->holiday = request()->input('holiday');
+            $holiday->date = request()->input('date');
+            $holiday->holiday_type_id = request()->input('holiday_type_id');
+            $holiday->save();
+
             return response()->json(array('success'=> true));
         }
     }
-
 
     /**
      * Update the specified resource in storage.
@@ -138,12 +137,11 @@ class LeaveTypeController extends Controller
      */
     public function destroy($id)
     {
-        $user = LeaveType::find($id);
+        $user = Holiday::find($id);
         $user->deleted_at = date('Y-m-d h:m:s');
         $user->save();
 
         // return Redirect::to('admin/users');
         return response()->json(array('success'=> true));
-
     }
 }

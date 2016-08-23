@@ -8,6 +8,10 @@ Route::group(array('prefix' => 'api/v1'), function()
     Route::resource('daily_time_records', 'DailyTimeRecordController');
     Route::resource('payroll_settings', 'PayrollSettingController');
     Route::resource('announcements', 'AnnouncementController');
+    Route::resource('leave_types', 'LeaveTypeController');
+    Route::resource('holidays', 'HolidayController');
+    Route::resource('pay_settings', 'PaySettingController');
+    Route::resource('night_diff_settings', 'NightDiffSettingController');
 });
 
 Route::post('/api/v1/auth', function()

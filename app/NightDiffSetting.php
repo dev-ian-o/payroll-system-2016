@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Holiday extends Model
+class NightDiffSetting extends Model
 {
     protected $fillable = [
-        'holiday_type_id', 'holiday','date'
+        'nd_shift_time_start','nd_shift_time_end','nd_pay', 
     ];
 }

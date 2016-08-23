@@ -63,3 +63,37 @@ php artisan make:model Event
 php artisan make:controller EventController --resource
 #php artisan db:seed --class=EventTableSeeder
 
+
+#holiday_types
+php artisan make:migration create_holiday_types_table --create=holiday_types
+#php artisan make:migration alter_holiday_types_table --table=holiday_types
+php artisan make:seeder HolidayTypeTableSeeder
+php artisan make:model HolidayType
+php artisan make:controller HolidayTypeController --resource
+#php artisan db:seed --class=HolidayTypeTableSeeder
+
+
+#holidays
+php artisan make:migration create_holidays_table --create=holidays
+#php artisan make:migration alter_holidays_table --table=holidays
+php artisan make:seeder HolidayTableSeeder
+php artisan make:model Holiday
+php artisan make:controller HolidayController --resource
+#php artisan db:seed --class=HolidayTableSeeder
+
+#pay_settings
+php artisan make:migration create_pay_settings_table --create=pay_settings
+#php artisan make:migration alter_pay_settings_table --table=pay_settings
+php artisan make:seeder PaySettingTableSeeder
+php artisan make:model PaySetting
+php artisan make:controller PaySettingController --resource
+#php artisan db:seed --class=PaySettingTableSeeder
+
+
+#night_diff_settings
+php artisan make:migration create_night_diff_settings_table --create=night_diff_settings
+#php artisan make:migration alter_night_diff_settings_table --table=night_diff_settings
+php artisan make:seeder NightDiffSettingTableSeeder
+php artisan make:model NightDiffSetting
+php artisan make:controller NightDiffSettingController --resource
+#php artisan db:seed --class=NightDiffSettingTableSeeder
