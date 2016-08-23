@@ -98,7 +98,7 @@
 
 <script type="text/javascript">
   $(document).on('ready change input click',function() {
-    $('.action-buttons').find('.edit').on('click', function(){
+    $('.action-buttons').find('.edit-info').on('click', function(){
         $('.datatable').dataTable(); $el = $(this.parentElement.parentElement).find("[name]");
         $($el).each(function() {
            $('#modal-edit-personal').find('[name='+this.name+']').val(this.value);
