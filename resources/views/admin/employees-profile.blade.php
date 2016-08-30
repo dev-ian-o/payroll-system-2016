@@ -75,29 +75,16 @@
                                             <input type="hidden" name="philhealth_contribution" value="{{ $employee['philhealth_contribution'] }}">
                                         </div>
                                         <div id="file-info" class="btn-group">
-                                            <a href="#" data-toggle="dropdown" class="btn btn-warning dropdown-toggle edit">File OT/Leave <span class="caret"></span></a>
+                                            <!-- <a href="#" data-toggle="dropdown" class="btn btn-warning dropdown-toggle edit">File OT/Leave <span class="caret"></span></a> -->
+                                            <a href="#" data-toggle="dropdown" class="btn btn-warning dropdown-toggle edit">File Leave <span class="caret"></span></a>
                                             <ul class="dropdown-menu" role="menu">
                                                 
                                                 <li><a href="#" data-toggle="modal" data-target="#modal-file-leave">File Leave</a></li>
-                                                <li><a href="#" data-toggle="modal" data-target="#modal-file-overtime">File Overtime</a></li>                                                    
+                                                <li><a href="#" data-toggle="modal" data-target="#modal-file-overtime">File Overtime</a></li>
+                                                <li><a href="#" data-toggle="modal" data-target="#modal-file-loan">Loan</a></li>                                                    
                                             </ul>
                                             <input type="hidden" name="id" value="{{ $employee['id'] }}">
                                             <input type="hidden" name="employee_id" value="{{ $employee['id'] }}">
-                                            <input type="hidden" name="employee_no" value="{{ $employee['employee_no'] }}">
-                                            <input type="hidden" name="firstname" value="{{ $employee['firstname'] }}">
-                                            <input type="hidden" name="lastname" value="{{ $employee['lastname'] }}">
-                                            <input type="hidden" name="middlename" value="{{ $employee['middlename'] }}">
-                                            <input type="hidden" name="birthdate" value="{{ $employee['birthdate'] }}">
-                                            <input type="hidden" name="address" value="{{ $employee['address'] }}">
-                                            <input type="hidden" name="city" value="{{ $employee['city'] }}">
-                                            <input type="hidden" name="province" value="{{ $employee['province'] }}">
-                                            <input type="hidden" name="zip_code" value="{{ $employee['zip_code'] }}">
-                                            <input type="hidden" name="salary_id" value="{{ $employee['salary_id'] }}">
-                                            <input type="hidden" name="civil_status_code_id" value="{{ $employee['civil_status_code_id'] }}">
-                                            <input type="hidden" name="basic_pay" value="{{ $employee['basic_pay'] }}">
-                                            <input type="hidden" name="sss_contribution" value="{{ $employee['sss_contribution'] }}">
-                                            <input type="hidden" name="pagibig_contribution" value="{{ $employee['pagibig_contribution'] }}">
-                                            <input type="hidden" name="philhealth_contribution" value="{{ $employee['philhealth_contribution'] }}">
                                         </div>
                                     </div>
 
@@ -244,6 +231,7 @@
 @include('admin.modals.employees.confirm')
 @include('admin.modals.employees.add-leave')
 @include('admin.modals.employees.add-overtime')
+@include('admin.modals.employees.add-loans')
 
 <script type="text/javascript">
   $(document).on('ready change input click',function() {
@@ -266,6 +254,7 @@
         $($el).each(function() {
            $('#modal-file-overtime').find('[name='+this.name+']').val(this.value);
            $('#modal-file-leave').find('[name='+this.name+']').val(this.value);
+           $('#modal-file-loan').find('[name='+this.name+']').val(this.value);
         });
     });
   });

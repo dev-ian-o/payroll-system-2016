@@ -12,6 +12,9 @@ Route::group(array('prefix' => 'api/v1'), function()
     Route::resource('holidays', 'HolidayController');
     Route::resource('pay_settings', 'PaySettingController');
     Route::resource('night_diff_settings', 'NightDiffSettingController');
+    Route::resource('employee_leave_records', 'EmployeeLeaveRecordController');
+    Route::resource('overtime_records', 'OvertimeRecordController');
+    Route::resource('loan_records', 'LoanRecordController');
 });
 
 Route::post('/api/v1/auth', function()

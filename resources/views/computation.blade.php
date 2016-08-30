@@ -9,6 +9,31 @@ $sss_table = json_decode(File::get($sss_table_directory),true);
 $philhealth_table = json_decode(File::get($philhealth_table_directory),true);
 
 
+$employee_id = 1;
+
+
+$employee = App\Employee::where('employees.deleted_at', '=', NULL)
+                                                ->where('employees.id','=',$employee_id)
+                                                ->leftJoin('salaries', 'salaries.id', '=', 'employees.salary_id')
+                                                ->select('*','employees.id','employees.deleted_at','employees.created_at','employees.updated_at')
+                                                ->get();
+
+
+$basic_salary = 11000;
+
+$pay_per_hour = (($basic_per_salary * 12) / 313) / 8;
+$pay_per_day = $pay_per_hour * 8;
+
+
+$worked_days = 0; // query number of days within period cover
+$cutoff_basic_salary = $pay_per_day * $worked_days;
+
+
+////DEDUCTIONS
+
+$late_hours = 0; //query number of hours based on daily time record..
+$
+
 
 
 $basic_salary = 11000;

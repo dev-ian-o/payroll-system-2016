@@ -17,6 +17,9 @@
             .datepicker{
                 z-index:1154 !important;
             }
+            .bootstrap-timepicker-widget{
+                z-index:1154 !important;
+            }
             #modal-confirm{
                 z-index:1152 !important;
             }

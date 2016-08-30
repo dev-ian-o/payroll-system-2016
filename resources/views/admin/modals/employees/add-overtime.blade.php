@@ -9,47 +9,24 @@
             <form role="form" id="form-file-overtime" class="form-horizontal">
             <!-- <form action="/api/v1/users" class="form-horizontal" method="post"> -->
             {{ csrf_field() }}
+            <input type="hidden" name="employee_id" class="form-control"/>
             <div class="modal-body">                            
                 <div class="form-group">
-                    <label class="col-md-3 control-label">Username:</label>
+                    <label class="col-md-3 control-label">Date and time from:</label>
                     <div class="col-md-9">
-                        <input type="text" name="username" class="form-control"/>
-                        <span class="help-block">Required, max size = 5</span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label">Email:</label>
-                    <div class="col-md-9">
-                        <input type="email" name="email" class="form-control"/>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label">User Group:</label>
-                    <div class="col-md-9">
-                        <select class="select" name="user_group_id">
-                            @foreach(App\UserGroup::get() as $key => $value)
-                            <option value="{{$value->id}}">{{ $value->groupname }}</option>
-                            @endforeach
-                        </select>                           
-                        <span class="help-block">Required</span>
-                    </div>
-                </div>    
+                        <input type="text" name="date_from" class="form-control datepicker"/>
+                        <input type="text" name="time_from" value="00:00" class="form-control timepicker"/>
 
-                <div class="form-group">
-                    <label class="col-md-3 control-label">Password:</label>
-                    <div class="col-md-9">
-                        <input type="password" name="password" class="form-control" id="password"/>
-                        <span class="help-block">Required, min size = 6</span>
                     </div>
-                </div>    
-                                                                  
+                </div>
                 <div class="form-group">
-                    <label class="col-md-3 control-label">Confirm:</label>
+                    <label class="col-md-3 control-label">Date and time to:</label>
                     <div class="col-md-9">
-                        <input type="password" class="form-control" name="password_confirmation"/>
-                        <span class="help-block">Required!</span>
+                        <input type="text" name="date_to" class="form-control datepicker"/>
+                        <input type="text" name="time_to" value="00:00" class="form-control timepicker"/>
                     </div>
                 </div>                                                               
+                                                                  
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -78,7 +55,7 @@
           e.preventDefault();
           console.log($(this).serialize());
           $.ajax({
-                    url: '../api/v1/users',
+                    url: '{{ URL::to('api/v1/overtime_records') }}',
                     type: 'POST',
                     data: $(this).serialize(),
                     dataType: 'json',

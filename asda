@@ -97,3 +97,11 @@ php artisan make:seeder NightDiffSettingTableSeeder
 php artisan make:model NightDiffSetting
 php artisan make:controller NightDiffSettingController --resource
 #php artisan db:seed --class=NightDiffSettingTableSeeder
+
+#overtime_records
+php artisan make:migration create_overtime_records_table --create=overtime_records
+#php artisan make:migration alter_overtime_records_table --table=overtime_records
+php artisan make:seeder OvertimeRecordTableSeeder
+php artisan make:model OvertimeRecord
+php artisan make:controller OvertimeRecordController --resource
+#php artisan db:seed --class=OvertimeRecordTableSeeder
