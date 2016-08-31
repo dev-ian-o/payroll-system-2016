@@ -105,3 +105,11 @@ php artisan make:seeder OvertimeRecordTableSeeder
 php artisan make:model OvertimeRecord
 php artisan make:controller OvertimeRecordController --resource
 #php artisan db:seed --class=OvertimeRecordTableSeeder
+
+#loan_records
+php artisan make:migration create_loan_records_table --create=loan_records
+#php artisan make:migration alter_loan_records_table --table=loan_records
+php artisan make:seeder LoanRecordTableSeeder
+php artisan make:model LoanRecord
+php artisan make:controller LoanRecordController --resource
+#php artisan db:seed --class=LoanRecordTableSeeder

@@ -221,6 +221,20 @@
     <!-- END PAGE CONTENT -->
 </div>
 
+<?php
+$cities_directory = storage_path('json/cities.json');
+$provinces_directory = storage_path('json/provinces.json');
+
+$cities_table = json_decode(File::get($cities_directory),true);
+$provinces_table = json_decode(File::get($provinces_directory),true);
+// echo "<pre>";
+// foreach ($provinces_table as $key => $value) :
+    
+//     var_dump($value['name']);
+    
+// endforeach;
+
+?>
 
 <!-- END PAGE CONTAINER --> 
 

@@ -27,6 +27,8 @@ class EmployeeController extends Controller
         ->select('*','employees.id','employees.deleted_at','employees.created_at','employees.updated_at')
         ->get();
 
+
+        
         // $employees = Employee::where('employees.deleted_at', '=', NULL)
         // ->join(\DB::raw('(SELECT * FROM salaries) salaries') , function($join){
         //     $join->on('salaries.employee_id', '=', 'employees.id');
@@ -78,7 +80,6 @@ class EmployeeController extends Controller
         //     'user_group_id' => 'required|exists:user_groups,id'
         // ]);
         $validator = Validator::make($request->all(), [
-            'employee_no' => 'required|unique:employees,employee_no|max:255|min:1',
             'firstname' => 'required|min:1',
             'lastname' => 'required|min:1',
             'middlename' => 'min:1',
@@ -122,8 +123,20 @@ class EmployeeController extends Controller
                 'philhealth_contribution' => request()->input('philhealth_contribution') 
             ))->id;
 
+            $employee_no = Employee::orderBy('created_at', 'desc')->first();
+            $employee_no = $employee_no->employee_no;
+            $employee_no++;
+            // echo strlen($employee_no);
+            $a = 9;
+            $str_emp_no = strlen($employee_no);
+            while($str_emp_no < $a ){  
+                $employee_no = '0' . $employee_no;
+                $a--; 
+            }
+
+
             $employee_id = Employee::create(array(
-                'employee_no' => request()->input('employee_no'),
+                'employee_no' => $employee_no,
                 'firstname' => request()->input('firstname'),
                 'middlename' => request()->input('middlename'),
                 'lastname' => request()->input('lastname'),

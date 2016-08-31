@@ -112,6 +112,13 @@
 
 
 <!-- END PAGE CONTAINER --> 
+<?php
+$cities_directory = storage_path('json/cities.json');
+$provinces_directory = storage_path('json/provinces.json');
+$cities_table = json_decode(File::get($cities_directory),true);
+$provinces_table = json_decode(File::get($provinces_directory),true);
+?>
+
 
 @include('admin.common.logout')
 @include('admin.common.footer')

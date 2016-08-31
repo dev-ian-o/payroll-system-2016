@@ -23,19 +23,19 @@
                 <div class="form-group">
                     <label class="col-md-3 control-label">SSS Contribution:</label>
                     <div class="col-md-9">
-                        <input type="text" name="sss_contribution" class="form-control"/>
+                        <input type="text" name="sss_contribution" class="form-control" readonly="" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 control-label">Pag-ibig Contribution:</label>
                     <div class="col-md-9">
-                        <input type="text" name="pagibig_contribution" class="form-control"/>
+                        <input type="text" name="pagibig_contribution" class="form-control" readonly=""/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 control-label">Philhealth Contribution:</label>
                     <div class="col-md-9">
-                        <input type="text" name="philhealth_contribution" class="form-control"/>
+                        <input type="text" name="philhealth_contribution" class="form-control" readonly=""/>
                     </div>
                 </div>
 
@@ -120,6 +120,131 @@
         });
 
         
+      });
+
+    $('#form-edit-pay').find('input[name=basic_pay]').on('change input',function() {
+            basic_salary = $(this).val();
+            pagibig_contribution = 0;
+            sss_contribution = 0;
+            philhealth_contribution = 0;
+            period = "semimonthly";
+            // $.getJSON('{{ URL::to('/admin-assets/json/philhealthtable.json') }}', function(data) {
+            //     $.each( data, function( key, val ) {
+
+            //     });
+            // });
+            $.getJSON('{{ URL::to('/admin-assets/json/ssscontributiontable.json') }}', function(data) {
+
+                
+                $.each( data[0]['employed'], function( key, val ) {
+
+
+                    if (val['rangeofcompensationstart'] <= basic_salary && val['rangeofcompensationend'] >= basic_salary)
+                    {
+                        if (period === "semimonthly")
+                            sss_contribution = val['ee'] / 2;
+                        else
+                            sss_contribution = val['ee'];
+                        $('#form-edit-pay').find('input[name=sss_contribution]').val(sss_contribution);
+                    }
+
+
+                    if (basic_salary < 1000)
+                    {
+                        if (val['rangeofcompensationstart'] === 1000.00)
+                        {   
+                            if (period === "semimonthly")
+                                sss_contribution = val['ee'] / 2;
+                            else
+                                sss_contribution = val['ee'];
+                            $('#form-edit-pay').find('input[name=sss_contribution]').val(sss_contribution);
+
+                        }
+                    }
+
+
+                    if (basic_salary > 30000)
+                    {
+                        if (val['rangeofcompensationend'] === 30000.00)
+                        {   
+                            if (period === "semimonthly")
+                                sss_contribution = val['ee'] / 2;
+                            else
+                                sss_contribution = val['ee'];
+                            $('#form-edit-pay').find('input[name=sss_contribution]').val(sss_contribution);
+
+                        }
+
+                    }
+
+
+                });
+
+            });
+
+            $.getJSON('{{ URL::to('/admin-assets/json/philhealthtable.json') }}', function(data) {
+
+                
+                $.each( data[0]['philhealth'], function( key, val ) {
+
+
+                    if (val['salarylowerrange'] <= basic_salary && val['salaryupperrange'] >= basic_salary)
+                    {
+                        if (period === "semimonthly")
+                            philhealth_contribution = val['ee'] / 2;
+                        else
+                            philhealth_contribution = val['ee'];
+
+                        $('#form-edit-pay').find('input[name=philhealth_contribution]').val(philhealth_contribution);
+                    }
+
+
+                    if (basic_salary < 8000)
+                    {
+                        if (val['salarylowerrange'] === 8000.00)
+                        {   
+                            if (period === "semimonthly")
+                                philhealth_contribution = val['ee'] / 2;
+                            else
+                                philhealth_contribution = val['ee'];
+                            $('#form-edit-pay').find('input[name=philhealth_contribution]').val(philhealth_contribution);
+                        }
+                    }
+
+
+                    if (basic_salary > 35999.99)
+                    {
+                        if (val['salaryupperrange'] === 35999.99)
+                        {   
+                            if (period === "semimonthly")
+                                philhealth_contribution = val['ee'] / 2;
+                            else
+                                philhealth_contribution = val['ee'];
+                            $('#form-edit-pay').find('input[name=philhealth_contribution]').val(philhealth_contribution);
+                        }
+                    }
+
+                
+
+
+                });
+
+            });
+
+            //COMPUTE PAG-BIG  CONTRIBUTION
+            
+            MAX_MONTHLY_COMPENSATION = 5000;
+
+            if (1500 >= basic_salary)
+                pagibig_contribution = MAX_MONTHLY_COMPENSATION * 0.01;
+            else 
+                pagibig_contribution = MAX_MONTHLY_COMPENSATION * 0.02;
+
+            $('#form-edit-pay').find('input[name=pagibig_contribution]').val(pagibig_contribution);
+            
+
+
+
       });
 
       function edit_pay(){
