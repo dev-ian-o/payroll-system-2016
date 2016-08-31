@@ -12,6 +12,7 @@
 */
 
 use App\User;
+use App\Employee;
 
 
 
@@ -30,7 +31,11 @@ Route::group(array('prefix' => 'admin','middleware' => 'auth'), function()
 	Route::get('/index', 			function(){ return View::make('admin.index'); });
 	Route::get('/dashboard', 			function(){ return View::make('admin.index'); });
 	Route::get('/users', 			function(){ return View::make('admin.users'); });
-	Route::get('/employees', 			function(){ return View::make('admin.employees'); });
+    Route::get('/employees',            function(){ return View::make('admin.employees'); });
+    Route::get('/settings',             function(){ return View::make('admin.settings'); });
+    Route::get('/announcements',            function(){ return View::make('admin.announcements'); });
+    Route::get('/holidays',            function(){ return View::make('admin.holidays'); });
+	Route::get('/leaves', 			function(){ return View::make('admin.leaves'); });
 	
 
 });
@@ -56,4 +61,30 @@ Route::match(array('GET', 'POST'), '/logout', function()
 Route::get('/computation', function()
 {
 	return View::make('computation');
+});
+
+
+Route::post('/api/v1/auth/confirm', function()
+{
+	$userdata = array(
+        'username' => Request::input('username'),
+        'password' => Request::input('password')
+    );
+
+    if(Auth::attempt($userdata)) 
+        return response()->json(array('success'=> true));
+    if(Auth::attempt($userdata)) 
+        return response()->json(array('success'=> false));
+});
+
+
+Route::get('/admin/employees/{employee_no}', function($employee_no)
+{
+    
+    if(Employee::where('employee_no', '=', $employee_no)->exists()){
+        return View::make('admin.employees-profile')->with('employee_no',$employee_no);
+    }
+    else{
+        return Redirect::to('/admin/employees');
+    }
 });

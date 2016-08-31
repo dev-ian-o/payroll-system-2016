@@ -39,16 +39,22 @@
                 <a href="#"><span class="fa fa-calendar"></span> <span class="xn-text">Payroll</span></a>                        
             </li>                                  
             <li title="Announcements" class="@if(Request::url() === url('admin/announcements'))active @endif">
-                <a href="#"><span class="fa fa-bell-o"></span> <span class="xn-text">Announcements</span></a>
+                <a href="{{ url('admin/announcements')}}"><span class="fa fa-bell-o"></span> <span class="xn-text">Announcements</span></a>
             </li>            
             <li title="Employees" class="@if(Request::url() === url('admin/employees'))active @endif">
                 <a href="{{ url('admin/employees')}}"><span class="fa fa-group"></span> <span class="xn-text">Employees</span></a>
             </li>            
             <li title="Timesheet" class="@if(Request::url() === url('admin/timesheet'))active @endif">
                 <a href="#"><span class="fa fa-clock-o"></span> <span class="xn-text">Timesheet</span></a>
+            </li>
+            <li title="Holidays" class="@if(Request::url() === url('admin/holidays'))active @endif">
+                <a href="{{ url('admin/holidays')}}"><span class="fa fa-calendar"></span> <span class="xn-text">Holidays</span></a>                        
+            </li>
+            <li title="Leaves" class="@if(Request::url() === url('admin/leaves'))active @endif">
+                <a href="{{ url('admin/leaves')}}"><span class="fa fa-calendar"></span> <span class="xn-text">Leaves</span></a>                        
             </li>           
             <li title="Settings" class="@if(Request::url() === url('admin/settings'))active @endif">
-                <a href="#"><span class="fa fa-gear"></span> <span class="xn-text">Settings</span></a>
+                <a href="{{ url('admin/settings')}}"><span class="fa fa-gear"></span> <span class="xn-text">Settings</span></a>
             </li> 
         </ul>
         <!-- END X-NAVIGATION -->

@@ -16,7 +16,7 @@ class CivilStatusCodeTableSeeder extends Seeder
         CivilStatusCode::create(array(
             'id_json' => '1',
             'civil_status' => 'S',
-            'civil_status_desc' => 'single',
+            'civil_status_desc' => 'Single',
         ));
 
         CivilStatusCode::create(array(
@@ -28,19 +28,19 @@ class CivilStatusCodeTableSeeder extends Seeder
         CivilStatusCode::create(array(
             'id_json' => '3',
             'civil_status' => 'S2',
-            'civil_status_desc' => 'Single w/ 2 dependent',
+            'civil_status_desc' => 'Single w/ 2 dependents',
         ));
 
         CivilStatusCode::create(array(
             'id_json' => '4',
             'civil_status' => 'S3',
-            'civil_status_desc' => 'Single w/ 3 dependent',
+            'civil_status_desc' => 'Single w/ 3 dependents',
         ));
 
         CivilStatusCode::create(array(
             'id_json' => '5',
             'civil_status' => 'S4',
-            'civil_status_desc' => 'Single w/ 4 dependent',
+            'civil_status_desc' => 'Single w/ 4 dependents',
         ));
 
 
@@ -59,19 +59,19 @@ class CivilStatusCodeTableSeeder extends Seeder
         CivilStatusCode::create(array(
             'id_json' => '3',
             'civil_status' => 'M2',
-            'civil_status_desc' => 'Married w/ 2 dependent',
+            'civil_status_desc' => 'Married w/ 2 dependents',
         ));
 
         CivilStatusCode::create(array(
             'id_json' => '4',
             'civil_status' => 'M3',
-            'civil_status_desc' => 'Married w/ 3 dependent',
+            'civil_status_desc' => 'Married w/ 3 dependents',
         ));
 
         CivilStatusCode::create(array(
             'id_json' => '5',
             'civil_status' => 'M4',
-            'civil_status_desc' => 'Married w/ 4 dependent',
+            'civil_status_desc' => 'Married w/ 4 dependents',
         ));
 
 

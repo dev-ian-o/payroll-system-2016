@@ -3,20 +3,55 @@
 $tax_table_directory = storage_path('json/witholdingtaxtable.json');
 $sss_table_directory = storage_path('json/ssscontributiontable.json');
 $philhealth_table_directory = storage_path('json/philhealthtable.json');
-
 $tax_table = json_decode(File::get($tax_table_directory),true);
 $sss_table = json_decode(File::get($sss_table_directory),true);
 $philhealth_table = json_decode(File::get($philhealth_table_directory),true);
 
+ json_last_error() ;
+$employee_id = 1;
 
 
+$employee = App\Employee::where('employees.deleted_at', '=', NULL)
+                                                ->where('employees.id','=',$employee_id)
+                                                ->leftJoin('salaries', 'salaries.id', '=', 'employees.salary_id')
+                                                ->select('*','employees.id','employees.deleted_at','employees.created_at','employees.updated_at')
+                                                ->get();
 
-$basic_salary = 11000;
+
+$employee = App\Employee::where('employees.deleted_at', '=', NULL)
+                                                ->where('employees.id','=',$employee_id);
+
+
+$basic_salary = 15000;
+
+$pay_per_hour = (($basic_salary * 12) / 313) / 8;
+$pay_per_day = $pay_per_hour * 8;
+
+
+$worked_days = 0; // query number of days within period cover
+$cutoff_basic_salary = $pay_per_day * $worked_days;
+
+
+////DEDUCTIONS
+
+$late_hours = 0; //query number of hours based on daily time record.. 
+$absenses = 0;// query number of absenses
+$leave_without_pay = 0; //query number of leave without pay
+$loan_payments = 0; //query loan per month
+
+
+//OTHER INCOME-TAXABLE (Additionals)
+//sss,philhealth
+//ot_payment
+//overtime(night_diff)
+
+
+$basic_salary = 15000;
 $civil_status= "S2/M2";
 $overtime_pay = 2500;
 $deductions = 2500;
 $employee = true;
-$period = "monthly";
+$period = "semimonthly";
 $MAX_MONTHLY_COMPENSATION = 5000;
 
 
@@ -138,19 +173,19 @@ echo "<br>";
 echo "taxable_income:".$taxable_income;
 // $taxable_income = 8558.00;
 // dd($tax_table[0]['witholdingtax'][0]['table']);
-// dd($tax_table[0]);
-foreach ($tax_table[0]['witholdingtax'][1]['table'] as $key => $value) {
+dd($tax_table);
+// foreach ($tax_table[0]['witholdingtax'][1]['table'] as $key => $value) {
 	
-	if($civil_status === $value['status'] && $value['basicsalary'] <= $taxable_income)
-	{
-		echo "<br>";
-		// echo $value['basicsalary'];
-		$excess = (($taxable_income - $value['basicsalary']) * $value['percent']) / 100;
-		$witholdingtax = $value['tax'] + $excess;
-		break;
-	}
+// 	if($civil_status === $value['status'] && $value['basicsalary'] <= $taxable_income)
+// 	{
+// 		echo "<br>";
+// 		// echo $value['basicsalary'];
+// 		$excess = (($taxable_income - $value['basicsalary']) * $value['percent']) / 100;
+// 		$witholdingtax = $value['tax'] + $excess;
+// 		break;
+// 	}
 
 
-};
+// };
 echo "<br>";
 echo "witholdingtax:".$witholdingtax;

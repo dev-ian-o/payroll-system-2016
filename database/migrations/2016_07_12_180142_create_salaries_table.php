@@ -16,6 +16,9 @@ class CreateSalariesTable extends Migration
             $table->increments('id');
             $table->integer('employee_id');
             $table->double('basic_pay');
+            $table->double('sss_contribution');
+            $table->double('pagibig_contribution');
+            $table->double('philhealth_contribution');
             $table->softDeletes();
             $table->timestamps();
         });

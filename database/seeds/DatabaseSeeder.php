@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         // $this->call(EmployeeDepedentTableSeeder::class);
         // $this->call(DailyTimeRecordTableSeeder::class);
         $this->call(CivilStatusCodeTableSeeder::class);
-        // $this->call(SalaryTableSeeder::class);
+        $this->call(SalaryTableSeeder::class);
         // $this->call(AnnouncementTableSeeder::class);
         // $this->call(EventTableSeeder::class);
     }

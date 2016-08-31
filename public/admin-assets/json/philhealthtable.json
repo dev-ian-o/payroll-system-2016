@@ -1,0 +1,33 @@
+[{
+	"philhealth":
+	[
+		{"salarylowerrange":8000.00, "salaryupperrange":8999.99, "er":100.00, "ee":100.00},
+		{"salarylowerrange":9000.00, "salaryupperrange":9999.99, "er":112.50, "ee":112.50},
+		{"salarylowerrange":10000.00, "salaryupperrange":10999.99, "er":125.00, "ee":125.00},
+		{"salarylowerrange":11000.00, "salaryupperrange":11999.99, "er":137.50, "ee":137.50},
+		{"salarylowerrange":12000.00, "salaryupperrange":12999.99, "er":150.00, "ee":150.00},
+		{"salarylowerrange":13000.00, "salaryupperrange":13999.99, "er":162.50, "ee":162.50},
+		{"salarylowerrange":14000.00, "salaryupperrange":14999.99, "er":175.00, "ee":175.00},
+		{"salarylowerrange":15000.00, "salaryupperrange":15999.99, "er":187.50, "ee":187.50},
+		{"salarylowerrange":16000.00, "salaryupperrange":16999.99, "er":200.00, "ee":200.00},
+		{"salarylowerrange":17000.00, "salaryupperrange":17999.99, "er":212.50, "ee":212.50},
+		{"salarylowerrange":18000.00, "salaryupperrange":18999.99, "er":225.00, "ee":225.00},
+		{"salarylowerrange":19000.00, "salaryupperrange":19999.99, "er":237.50, "ee":237.50},
+		{"salarylowerrange":20000.00, "salaryupperrange":20999.99, "er":250.00, "ee":250.00},
+		{"salarylowerrange":21000.00, "salaryupperrange":21999.99, "er":262.50, "ee":262.50},
+		{"salarylowerrange":22000.00, "salaryupperrange":22999.99, "er":275.00, "ee":275.00},
+		{"salarylowerrange":23000.00, "salaryupperrange":23999.99, "er":287.50, "ee":287.50},
+		{"salarylowerrange":24000.00, "salaryupperrange":24999.99, "er":300.00, "ee":300.00},
+		{"salarylowerrange":25000.00, "salaryupperrange":25999.99, "er":312.50, "ee":312.50},
+		{"salarylowerrange":26000.00, "salaryupperrange":26999.99, "er":325.00, "ee":325.00},
+		{"salarylowerrange":27000.00, "salaryupperrange":27999.99, "er":337.50, "ee":337.50},
+		{"salarylowerrange":28000.00, "salaryupperrange":28999.99, "er":350.00, "ee":350.00},
+		{"salarylowerrange":29000.00, "salaryupperrange":29999.99, "er":362.50, "ee":362.50},
+		{"salarylowerrange":30000.00, "salaryupperrange":30999.99, "er":375.00, "ee":375.00},
+		{"salarylowerrange":31000.00, "salaryupperrange":31999.99, "er":387.50, "ee":387.50},
+		{"salarylowerrange":32000.00, "salaryupperrange":32999.99, "er":400.00, "ee":400.00},
+		{"salarylowerrange":33000.00, "salaryupperrange":33999.99, "er":412.50, "ee":412.50},
+		{"salarylowerrange":34000.00, "salaryupperrange":34999.99, "er":425.00, "ee":425.00},
+		{"salarylowerrange":35000.00, "salaryupperrange":35999.99, "er":437.50, "ee":437.50}
+	]
+}]
