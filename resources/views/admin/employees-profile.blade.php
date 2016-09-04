@@ -22,6 +22,21 @@
                                                 ->get();
             $employee = $employee[0];
         ?>
+
+        <?php
+            $dt_current = Carbon\Carbon::now();
+            $start_date = $dt_current->startOfWeek()->toDateTimeString();
+            $end_date = $dt_current->endOfWeek()->toDateString();
+            // echo $start_date;
+
+            $employee_records = App\DailyTimeRecord::where('employee_id','=',$employee['employee_id'])
+                ->whereBetween('time_in', [$start_date, $end_date])
+                ->orderBy('time_in','ASC')
+                ->get();
+                   // echo Carbon\Carbon::createFromFormat('Y-m-d', $employee_records[0][time_in] )->toFormattedDateString();
+                    // echo Carbon\Carbon::createFromFormat('Y-m-d H', '1975-05-21 22')->toDateTimeString(); 
+// diffInHours($dtVancouver, false);
+        ?>
         
         <!-- PAGE TITLE -->
         <div class="page-title">                    
@@ -154,27 +169,14 @@
                                                                 <th>Time-in</th>
                                                                 <th>Time-out</th>
                                                                 <th>Total Hours</th>
-                                                                <th>Actions</th>
+                                                                <!-- <th>Actions</th> -->
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                         <?php $a = 1;?>
 
 
-                <?php
-                $dt_current = Carbon\Carbon::now();
-                $start_date = $dt_current->startOfWeek()->toDateTimeString();
-                $end_date = $dt_current->endOfWeek()->toDateString();
-                // echo $start_date;
-
-                $employee_records = App\DailyTimeRecord::where('employee_id','=',$employee['employee_id'])
-                    ->whereBetween('time_in', [$start_date, $end_date])
-                    ->orderBy('time_in','ASC')
-                    ->get();
-                   // echo Carbon\Carbon::createFromFormat('Y-m-d', $employee_records[0][time_in] )->toFormattedDateString();
-                    // echo Carbon\Carbon::createFromFormat('Y-m-d H', '1975-05-21 22')->toDateTimeString(); 
-// diffInHours($dtVancouver, false);
-                ?>
+                
                                                         @foreach($employee_records as $key => $value)
                                                             <?php $dt_time_in = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value->time_in );?>
                                                             <?php if($value->time_out) 
@@ -185,11 +187,11 @@
                                                                 <td>{{ $dt_time_in->toDayDateTimeString() }}</td>
                                                                 <td>@if($value->time_out){{ $dt_time_out->toDayDateTimeString() }} @else {{ $value->time_out }} @endif</td>
                                                                 <td>@if($value->time_out){{ $dt_time_in->diffInHours($dt_time_out,true) }} @endif</td>
-                                                                <td class="action-buttons">
+                                                                <!-- <td class="action-buttons"> -->
 
                                                                     <!-- <button class="btn btn-warning edit" data-toggle="modal" data-target="#modal-edit"><i class="fa fa-pencil"></i></button> -->
-                                                                    <input type="hidden" name="id" value="{{ $value->id }}">
-                                                                    <a href="#" class="btn btn-warning" ><!-- <i class="fa fa-eye"></i> -->Edit</a>
+                                                                    <!-- <input type="hidden" name="id" value="{{ $value->id }}"> -->
+                                                                    <!-- <a href="#" class="btn btn-warning" ><i class="fa fa-eye"></i>Edit</a> -->
                                                                     <!-- <div class="btn-group">
                                                                         <a href="#" data-toggle="dropdown" class="btn btn-warning dropdown-toggle edit">Edit <span class="caret"></span></a>
                                                                         <ul class="dropdown-menu" role="menu">
@@ -199,7 +201,232 @@
                                                                         </ul>
                                                                     </div>
                                                                     <button class="btn btn-danger delete" data-toggle="modal" data-target="#modal-delete"><i class="fa fa-trash-o"></i></button> -->
-                                                                </td>
+                                                                <!-- </td> -->
+                                                            </tr>
+                                                        @endforeach
+                                                        </tbody>
+
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <!-- END DEFAULT DATATABLE -->
+                                      
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12">
+                                    <div class="panel panel-default">
+                                                                    <!-- START DEFAULT DATATABLE -->
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">                                
+                                                    <h3 class="panel-title">Overtime records</h3>
+                                                    <ul class="panel-controls">
+                                                        <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
+                                                        <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                                                        <li><a href="#" class="panel-default" data-toggle="modal" data-target="#modal-add"><span class="fa fa-plus"></span></a></li>
+
+                                                    </ul>                                
+                                                </div>
+                                                <div class="panel-body">
+                                                    <table class="table datatable">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>#</th>
+                                                                <th>Date/time from</th>
+                                                                <th>Date/time to</th>
+                                                                <th>Total Hours</th>
+                                                                <!-- <th>Actions</th> -->
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <?php $a = 1;?>
+
+
+                
+                                                        @foreach(App\OvertimeRecord::where('deleted_at','=',NULL)
+                                                                ->where('employee_id','=',$employee['id'])->get() as $key => $value)
+                                                            <?php $dt_date_from = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value->date_from );?>
+                                                            <?php $dt_date_to = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value->date_to ); ?>
+
+                                                            <?php $date_from = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value->date_from )->format('Y-m-d'); ?>
+                                                            <?php $time_from = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value->date_from )->format('H:i:s A'); ?>
+                                                            <?php $date_to = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value->date_to )->format('Y-m-d'); ?>
+                                                            <?php $time_to = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value->date_to )->format('H:i:s A'); ?>
+
+                                                            <tr>
+                                                                <td>{{ $a++ }}</td>
+                                                                <td>{{ $dt_date_from->toDayDateTimeString() }}</td>
+                                                                <td>{{ $dt_date_to->toDayDateTimeString() }} </td>
+                                                                <td>{{ $dt_date_from->diffInHours($dt_date_to,true) }}</td>
+                                                                <!-- <td class="action-buttons"> -->
+
+                                                                    <!-- <button class="btn btn-warning edit" data-toggle="modal" data-target="#modal-edit"><i class="fa fa-pencil"></i></button> -->
+                                                                    <!-- <input type="hidden" name="id" value="{{ $value->id }}">
+                                                                    <input type="hidden" name="date_from" value="{{ $date_from }}">
+                                                                    <input type="hidden" name="time_from" value="{{ $time_from }}">
+                                                                    <input type="hidden" name="date_to" value="{{ $date_to }}">
+                                                                    <input type="hidden" name="time_to" value="{{ $time_to }}"> -->
+                                                                    <!-- <a href="#" class="btn btn-warning" ><i class="fa fa-eye"></i>Edit</a> -->
+                                                                    <!-- <div class="btn-group">
+                                                                        <a href="#" data-toggle="dropdown" class="btn btn-warning dropdown-toggle edit">Edit <span class="caret"></span></a>
+                                                                        <ul class="dropdown-menu" role="menu">
+                                                                            
+                                                                            <li><a href="#" data-toggle="modal" data-target="#modal-edit-personal">Personal and Address Information</a></li>
+                                                                            <li><a href="#" data-toggle="modal" data-target="#modal-edit-pay">Pay Information</a></li>                                                    
+                                                                        </ul>
+                                                                    </div>
+                                                                    <button class="btn btn-danger delete" data-toggle="modal" data-target="#modal-delete"><i class="fa fa-trash-o"></i></button> -->
+                                                                <!-- </td> -->
+                                                            </tr>
+                                                        @endforeach
+                                                        </tbody>
+
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <!-- END DEFAULT DATATABLE -->
+                                      
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12">
+                                    <div class="panel panel-default">
+                                                                    <!-- START DEFAULT DATATABLE -->
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">                                
+                                                    <h3 class="panel-title">Leave records</h3>
+                                                    <ul class="panel-controls">
+                                                        <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
+                                                        <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                                                        <li><a href="#" class="panel-default" data-toggle="modal" data-target="#modal-add"><span class="fa fa-plus"></span></a></li>
+
+                                                    </ul>                                
+                                                </div>
+                                                <div class="panel-body">
+                                                    <table class="table datatable">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>#</th>
+                                                                <th>Leave Type</th>
+                                                                <th>Date from</th>
+                                                                <th>Date to</th>
+                                                                <!-- <th>Actions</th> -->
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <?php $a = 1;?>
+
+
+                
+                                                        @foreach(App\EmployeeLeaveRecord::where('employee_leave_records.deleted_at','=',NULL)
+                                                                ->where('employee_leave_records.employee_id','=',$employee['id'])
+                                                        ->leftJoin('leave_types', 'leave_types.id', '=', 'employee_leave_records.leave_type_id')
+                                                ->select('*','employee_leave_records.id','employee_leave_records.deleted_at','employee_leave_records.created_at','employee_leave_records.updated_at')
+                                                                ->orderBy('employee_leave_records.date_from','DESC')->get() as $key => $value)
+                                                            <?php $dt_date_from = Carbon\Carbon::createFromFormat('Y-m-d', $value->date_from );?>
+                                                            <?php $dt_date_to = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value->date_to ); ?>
+
+                                                            <?php $date_from = Carbon\Carbon::createFromFormat('Y-m-d', $value->date_from )->format('Y-m-d'); ?>
+                                                            <?php $time_from = Carbon\Carbon::createFromFormat('Y-m-d', $value->date_from )->format('H:i:s A'); ?>
+                                                            <?php $date_to = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value->date_to )->format('Y-m-d'); ?>
+                                                            <?php $time_to = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value->date_to )->format('H:i:s A'); ?>
+
+                                                            <tr>
+                                                                <td>{{ $a++ }}</td>
+                                                                <td>{{ $value->leave_type }}</td>
+                                                                <td>{{ $dt_date_from->toFormattedDateString() }}</td>
+                                                                <td>{{ $dt_date_to->toFormattedDateString() }} </td>
+                                                                <!-- <td class="action-buttons"> -->
+
+                                                                    <!-- <button class="btn btn-warning edit" data-toggle="modal" data-target="#modal-edit"><i class="fa fa-pencil"></i></button> -->
+                                                                    <!-- <input type="hidden" name="id" value="{{ $value->id }}">
+                                                                    <input type="hidden" name="date_from" value="{{ $date_from }}">
+                                                                    <input type="hidden" name="time_from" value="{{ $time_from }}">
+                                                                    <input type="hidden" name="date_to" value="{{ $date_to }}">
+                                                                    <input type="hidden" name="time_to" value="{{ $time_to }}"> -->
+                                                                    <!-- <a href="#" class="btn btn-warning" ><i class="fa fa-eye"></i>Edit</a> -->
+                                                                    <!-- <div class="btn-group">
+                                                                        <a href="#" data-toggle="dropdown" class="btn btn-warning dropdown-toggle edit">Edit <span class="caret"></span></a>
+                                                                        <ul class="dropdown-menu" role="menu">
+                                                                            
+                                                                            <li><a href="#" data-toggle="modal" data-target="#modal-edit-personal">Personal and Address Information</a></li>
+                                                                            <li><a href="#" data-toggle="modal" data-target="#modal-edit-pay">Pay Information</a></li>                                                    
+                                                                        </ul>
+                                                                    </div>
+                                                                    <button class="btn btn-danger delete" data-toggle="modal" data-target="#modal-delete"><i class="fa fa-trash-o"></i></button> -->
+                                                                <!-- </td> -->
+                                                            </tr>
+                                                        @endforeach
+                                                        </tbody>
+
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <!-- END DEFAULT DATATABLE -->
+                                      
+                                    </div>
+                                </div>
+
+
+                                <div class="col-xs-12">
+                                    <div class="panel panel-default">
+                                                                    <!-- START DEFAULT DATATABLE -->
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">                                
+                                                    <h3 class="panel-title">Loan records</h3>
+                                                    <ul class="panel-controls">
+                                                        <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
+                                                        <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                                                        <li><a href="#" class="panel-default" data-toggle="modal" data-target="#modal-add"><span class="fa fa-plus"></span></a></li>
+
+                                                    </ul>                                
+                                                </div>
+                                                <div class="panel-body">
+                                                    <table class="table datatable">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>#</th>
+                                                                <th>Total Amount</th>
+                                                                <th>Loan Balance</th>
+                                                                <th>Months of payment</th>
+                                                                <th>Loan Status</th>
+                                                                <!-- <th>Actions</th> -->
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <?php $a = 1;?>
+
+
+                
+                                                        @foreach(App\LoanRecord::where('deleted_at','=',NULL)
+                                                                ->where('employee_id','=',$employee['id'])->orderBy('created_at','DESC')->get() as $key => $value)
+                                                           
+
+                                                            <tr>
+                                                                <td>{{ $a++ }}</td>
+                                                                <td>{{ number_format($value->loan_total,2) }}</td>
+                                                                <td>{{ number_format($value->loan_balance,2) }}</td>
+                                                                <td>{{ $value->months_of_payment }}</td>
+                                                                <td>@if($value->loan_status == 0) {{ "Not Paid" }} @else {{ "Paid" }} @endif</td>
+                                                                <!-- <td class="action-buttons"> -->
+
+                                                                    <!-- <button class="btn btn-warning edit" data-toggle="modal" data-target="#modal-edit"><i class="fa fa-pencil"></i></button> -->
+                                                                    <!-- <input type="hidden" name="id" value="{{ $value->id }}">
+                                                                    <input type="hidden" name="date_from" value="{{ $date_from }}">
+                                                                    <input type="hidden" name="time_from" value="{{ $time_from }}">
+                                                                    <input type="hidden" name="date_to" value="{{ $date_to }}">
+                                                                    <input type="hidden" name="time_to" value="{{ $time_to }}"> -->
+                                                                    <!-- <a href="#" class="btn btn-warning" ><i class="fa fa-eye"></i>Edit</a> -->
+                                                                    <!-- <div class="btn-group">
+                                                                        <a href="#" data-toggle="dropdown" class="btn btn-warning dropdown-toggle edit">Edit <span class="caret"></span></a>
+                                                                        <ul class="dropdown-menu" role="menu">
+                                                                            
+                                                                            <li><a href="#" data-toggle="modal" data-target="#modal-edit-personal">Personal and Address Information</a></li>
+                                                                            <li><a href="#" data-toggle="modal" data-target="#modal-edit-pay">Pay Information</a></li>                                                    
+                                                                        </ul>
+                                                                    </div>
+                                                                    <button class="btn btn-danger delete" data-toggle="modal" data-target="#modal-delete"><i class="fa fa-trash-o"></i></button> -->
+                                                                <!-- </td> -->
                                                             </tr>
                                                         @endforeach
                                                         </tbody>

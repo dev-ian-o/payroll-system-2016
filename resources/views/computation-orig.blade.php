@@ -18,10 +18,13 @@ $employee = App\Employee::where('employees.deleted_at', '=', NULL)
                                                 ->leftJoin('salaries', 'salaries.id', '=', 'employees.salary_id')
                                                 ->select('*','employees.id','employees.deleted_at','employees.created_at','employees.updated_at')
                                                 ->get();
-$employee = $employee[0];
 
 
-$basic_salary = $employee['basic_pay'];
+$employee = App\Employee::where('employees.deleted_at', '=', NULL)
+                                                ->where('employees.id','=',$employee_id);
+
+
+$basic_salary = 15000;
 
 $pay_per_hour = (($basic_salary * 12) / 313) / 8;
 $pay_per_day = $pay_per_hour * 8;
@@ -45,6 +48,7 @@ $loan_payments = 0; //query loan per month
 //overtime(night_diff)
 
 
+$basic_salary = 15000;
 $civil_status= "S2/ME2";
 $overtime_pay = 2500;
 $deductions = 2500;

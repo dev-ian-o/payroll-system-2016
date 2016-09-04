@@ -11,7 +11,7 @@ class CivilStatusCodeTableSeeder extends Seeder
      */
     public function run()
     {
-       	DB::table('holiday_types')->truncate();
+       	DB::table('civil_status_codes')->truncate();
 
         CivilStatusCode::create(array(
             'id_json' => '1',
