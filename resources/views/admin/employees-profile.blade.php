@@ -91,7 +91,7 @@
                                         </div>
                                         <div id="file-info" class="btn-group">
                                             <!-- <a href="#" data-toggle="dropdown" class="btn btn-warning dropdown-toggle edit">File OT/Leave <span class="caret"></span></a> -->
-                                            <a href="#" data-toggle="dropdown" class="btn btn-warning dropdown-toggle edit">File Leave <span class="caret"></span></a>
+                                            <a href="#" data-toggle="dropdown" class="btn btn-warning dropdown-toggle edit">File Leave / OT / Loan<span class="caret"></span></a>
                                             <ul class="dropdown-menu" role="menu">
                                                 
                                                 <li><a href="#" data-toggle="modal" data-target="#modal-file-leave">File Leave</a></li>

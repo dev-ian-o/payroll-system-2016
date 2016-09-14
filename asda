@@ -113,3 +113,12 @@ php artisan make:seeder LoanRecordTableSeeder
 php artisan make:model LoanRecord
 php artisan make:controller LoanRecordController --resource
 #php artisan db:seed --class=LoanRecordTableSeeder
+
+
+#tmp_dtrs
+php artisan make:migration create_tmp_dtrs_table --create=tmp_dtrs
+#php artisan make:migration alter_tmp_dtrs_table --table=tmp_dtrs
+php artisan make:seeder TmpDTRTableSeeder
+php artisan make:model TmpDTR
+php artisan make:controller TmpDTRController --resource
+#php artisan db:seed --class=TmpDTRTableSeeder

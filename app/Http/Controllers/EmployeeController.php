@@ -123,7 +123,7 @@ class EmployeeController extends Controller
                 'philhealth_contribution' => request()->input('philhealth_contribution') 
             ))->id;
 
-            $employee_no = Employee::orderBy('created_at', 'desc')->first();
+            $employee_no = Employee::orderBy('id', 'desc')->first();
             $employee_no = $employee_no->employee_no;
             $employee_no++;
             // echo strlen($employee_no);

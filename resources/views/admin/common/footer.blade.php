@@ -15,6 +15,7 @@
         <script type='text/javascript' src='{{ URL::to('admin-assets/js/plugins/noty/layouts/topLeft.js') }}'></script>
         <script type='text/javascript' src='{{ URL::to('admin-assets/js/plugins/noty/layouts/topRight.js') }}'></script>            
         
+        <script type="text/javascript" src="{{ URL::to('admin-assets/js/plugins/dropzone/dropzone.min.js') }}"></script>
         <script type='text/javascript' src='{{ URL::to('admin-assets/js/plugins/noty/themes/default.js') }}'></script>
 
         <!-- END PLUGINS -->

@@ -36,7 +36,7 @@
                 <a href="{{ url('admin/users')}}"><span class="fa fa-user"></span> <span class="xn-text">Users</span></a>                        
             </li> 
             <li title="Payroll" class="@if(Request::url() === url('admin/payroll'))active @endif">
-                <a href="#"><span class="fa fa-calendar"></span> <span class="xn-text">Payroll</span></a>                        
+                <a href="{{url('admin/payroll')}}"><span class="fa fa-calendar"></span> <span class="xn-text">Payroll</span></a>                        
             </li>                                  
             <li title="Announcements" class="@if(Request::url() === url('admin/announcements'))active @endif">
                 <a href="{{ url('admin/announcements')}}"><span class="fa fa-bell-o"></span> <span class="xn-text">Announcements</span></a>
@@ -45,7 +45,7 @@
                 <a href="{{ url('admin/employees')}}"><span class="fa fa-group"></span> <span class="xn-text">Employees</span></a>
             </li>            
             <li title="Timesheet" class="@if(Request::url() === url('admin/timesheet'))active @endif">
-                <a href="#"><span class="fa fa-clock-o"></span> <span class="xn-text">Timesheet</span></a>
+                <a href="{{ url('admin/timesheet')}}"><span class="fa fa-clock-o"></span> <span class="xn-text">Timesheet</span></a>
             </li>
             <li title="Holidays" class="@if(Request::url() === url('admin/holidays'))active @endif">
                 <a href="{{ url('admin/holidays')}}"><span class="fa fa-calendar"></span> <span class="xn-text">Holidays</span></a>                        
